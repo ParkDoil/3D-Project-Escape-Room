@@ -10,6 +10,10 @@
 - 플레이어 인원 : 1명
 - 조작 : 키보드(움직임 / 상호작용) / 마우스(화면회전)
 
+## 영감을 얻은 게임 영상
+- [참고영상 1](https://www.youtube.com/watch?v=0iQiyl4zAig)
+- [참고영상 2](https://www.youtube.com/watch?v=iTComurZdkM&t=72s)
+
 ## 간략한 플레이 소개
 - 문이 닫힌 방 안에서 퍼즐을 풀어 방을 탈출하는 게임
 - 방은 약 2~3개 제작 예정
