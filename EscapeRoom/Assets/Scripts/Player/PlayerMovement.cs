@@ -26,27 +26,24 @@ public class PlayerMovement : MonoBehaviour
         dir.x = _input.X;
         dir.z = _input.Z;
 
-        if(dir != Vector3.zero)
+
+        if (dir != Vector3.zero)
         {
-            //transform.forward = dir;
             Move(dir);
         }
 
-        Show();
+        Look();
     }
 
-    /// <summary>
-    /// 캐릭터를 움직인다.
-    /// </summary>
-    /// <param name="direction">양수면 캐릭터의 forward 방향을 의미하며, 음수면 캐릭터의 backward 방향을 의미한다.</param>
     void Move(Vector3 direction)
     {
-        Vector3 deltaPosition = MoveSpeed * direction * Time.deltaTime;
-        Vector3 newPosition = _rigid.position + deltaPosition;
+        Vector3 ForwardPosition = MoveSpeed * Time.deltaTime * direction.z * transform.forward;
+        Vector3 SidePosition = MoveSpeed * Time.deltaTime * direction.x * transform.right;
+        Vector3 newPosition = _rigid.position + ForwardPosition + SidePosition;
         _rigid.MovePosition(newPosition);
     }
 
-    void Show()
+    void Look()
     {
         float yRotateSize = Input.GetAxis("Mouse X") * TurnSpeed;
         float yRotate = transform.eulerAngles.y + yRotateSize;
