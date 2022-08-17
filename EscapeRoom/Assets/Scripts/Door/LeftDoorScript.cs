@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour
+public class LeftDoorScript : MonoBehaviour
 {
     public bool Open { get; set; }
     private float _doorOpenAngle = 100f;

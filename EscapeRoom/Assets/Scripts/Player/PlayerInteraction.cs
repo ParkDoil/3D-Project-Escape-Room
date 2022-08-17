@@ -16,9 +16,17 @@ public class PlayerInteraction : MonoBehaviour
             if (Physics.Raycast(ray, out hit, _interactDiastance))
             {
                 Debug.Log("레이캐스트 맞음");
-                if (hit.collider.CompareTag("Door"))
+                if (hit.collider.CompareTag("LeftDoor"))
                 {
-                    hit.collider.transform.GetComponent<DoorScript>().ChangeDoorState();
+                    hit.collider.transform.GetComponent<LeftDoorScript>().ChangeDoorState();
+                }
+                else if(hit.collider.CompareTag("RightDoor"))
+                {
+                    hit.collider.transform.GetComponent<RightDoorScript>().ChangeDoorState();
+                }
+                else
+                {
+                    return;
                 }
             }
         }
