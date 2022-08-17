@@ -7,13 +7,15 @@ public class PlayerMovement : MonoBehaviour
     PlayerInput _input;
     Rigidbody _rigid;
 
-    public float MoveSpeed = 10f;
+    public float MoveSpeed = 8f;
     public float RotationSpeed = 120f;
-    public float TurnSpeed = 8.0f;
+    public float TurnSpeed = 13f;
 
     private float _xRotate = 0.0f;
 
     Vector3 dir = Vector3.zero;
+
+    public bool Iscollision { get; set; }
 
     void Awake()
     {
@@ -23,9 +25,15 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        dir.x = _input.X;
-        dir.z = _input.Z;
-
+        if (Iscollision == false)
+        {
+            dir.x = _input.X;
+            dir.z = _input.Z;
+        }
+        else
+        {
+            dir = Vector3.zero;
+        }
 
         if (dir != Vector3.zero)
         {
@@ -52,5 +60,21 @@ public class PlayerMovement : MonoBehaviour
         _xRotate = Mathf.Clamp(_xRotate + xRotateSize, -45, 80);
 
         transform.eulerAngles = new Vector3(_xRotate, yRotate, 0);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Wall")
+        {
+            Iscollision = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "Wall")
+        {
+            Iscollision = false;
+        }
     }
 }

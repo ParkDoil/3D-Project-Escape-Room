@@ -4,30 +4,32 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    private float _interactDiastance = 5f;
+    private float _interactDiastance = 3f;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        UIManager.Instance.OffInteractionUI();
+
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, _interactDiastance))
         {
-            Ray ray = new Ray(transform.position, transform.forward);
-            RaycastHit hit;
-            Debug.Log("레이캐스트 쐈음");
-            if (Physics.Raycast(ray, out hit, _interactDiastance))
+            if (hit.collider.CompareTag("LeftDoor"))
             {
-                Debug.Log("레이캐스트 맞음");
-                if (hit.collider.CompareTag("LeftDoor"))
+                UIManager.Instance.OnInteractionUI();
+                if(Input.GetKeyDown(KeyCode.E))
                 {
                     hit.collider.transform.GetComponent<LeftDoorScript>().ChangeDoorState();
                 }
-                else if(hit.collider.CompareTag("RightDoor"))
+            }
+            else if (hit.collider.CompareTag("RightDoor"))
+            {
+                UIManager.Instance.OnInteractionUI();
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     hit.collider.transform.GetComponent<RightDoorScript>().ChangeDoorState();
                 }
-                else
-                {
-                    return;
-                }
+                
             }
         }
 
