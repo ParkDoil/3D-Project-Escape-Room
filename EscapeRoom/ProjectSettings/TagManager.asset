@@ -8,6 +8,9 @@ TagManager:
   - RightDoor
   - Door
   - Wall
+  - UpDownDoor
+  - Drawer
+  - Hint
   layers:
   - Default
   - TransparentFX

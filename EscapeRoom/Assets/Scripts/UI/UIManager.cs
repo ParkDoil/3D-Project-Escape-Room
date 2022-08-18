@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class UIManager : SingletonBehaviour<UIManager>
 {
-
     public GameObject InteractionUI;
-
+    public GameObject FinalHintUI;
+    public GameObject ShowAgainUI;
 
     void Start()
     {
@@ -19,12 +19,23 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
     }
 
-    public void OnInteractionUI()
+    public void OnDoorInteractionUI()
     {
         InteractionUI.SetActive(true);
     }
-    public void OffInteractionUI()
+    public void OffDoorInteractionUI()
     {
         InteractionUI.SetActive(false);
+    }
+
+    public void ShowFinalHintText()
+    {
+        ShowAgainUI.SetActive(false);
+        FinalHintUI.SetActive(true);
+    }
+    public void ExitFinalHintText()
+    {
+        ShowAgainUI.SetActive(true);
+        FinalHintUI.SetActive(false);
     }
 }
