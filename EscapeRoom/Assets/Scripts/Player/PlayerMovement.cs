@@ -25,15 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Iscollision == false)
-        {
-            dir.x = _input.X;
-            dir.z = _input.Z;
-        }
-        else
-        {
-            dir = Vector3.zero;
-        }
+        dir.x = _input.X;
+        dir.z = _input.Z;
 
         if (dir != Vector3.zero)
         {
@@ -48,7 +41,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 ForwardPosition = MoveSpeed * Time.deltaTime * direction.z * transform.forward;
         Vector3 SidePosition = MoveSpeed * Time.deltaTime * direction.x * transform.right;
         Vector3 newPosition = _rigid.position + ForwardPosition + SidePosition;
+
+        if (Iscollision == true)
+        {
+            _rigid.velocity = Vector3.zero;
+        }
+
         _rigid.MovePosition(newPosition);
+
     }
 
     void Look()

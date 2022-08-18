@@ -12,6 +12,7 @@ public class PlayerInteraction : MonoBehaviour
 
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
+
         if (Physics.Raycast(ray, out hit, _interactDiastance))
         {
             if (hit.collider.CompareTag("LeftDoor"))
@@ -22,7 +23,8 @@ public class PlayerInteraction : MonoBehaviour
                     hit.collider.transform.GetComponent<LeftDoorScript>().ChangeDoorState();
                 }
             }
-            else if (hit.collider.CompareTag("RightDoor"))
+
+            if (hit.collider.CompareTag("RightDoor"))
             {
                 UIManager.Instance.OnInteractionUI();
                 if (Input.GetKeyDown(KeyCode.E))
@@ -30,6 +32,26 @@ public class PlayerInteraction : MonoBehaviour
                     hit.collider.transform.GetComponent<RightDoorScript>().ChangeDoorState();
                 }
                 
+            }
+
+            if (hit.collider.CompareTag("UpDownDoor"))
+            {
+                UIManager.Instance.OnInteractionUI();
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.collider.transform.GetComponent<UpDownDoorScript>().ChangeDoorState();
+                }
+
+            }
+
+            if (hit.collider.CompareTag("Drawer"))
+            {
+                UIManager.Instance.OnInteractionUI();
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.collider.transform.GetComponent<DrawerScript>().ChangeDoorState();
+                }
+
             }
         }
 

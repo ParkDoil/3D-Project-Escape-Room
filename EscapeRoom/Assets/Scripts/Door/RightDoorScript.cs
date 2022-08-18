@@ -19,12 +19,12 @@ public class RightDoorScript : MonoBehaviour
     {
         if (Open)
         {
-            Quaternion targetRotation = Quaternion.Euler(0, _doorOpenAngle, 0);
+            Quaternion targetRotation = Quaternion.Euler(0f, _doorOpenAngle, 0f);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, _rotationSpeed * Time.deltaTime);
         }
         else
         {
-            Quaternion targetRotation2 = Quaternion.Euler(0, _doorCloseAngle, 0);
+            Quaternion targetRotation2 = Quaternion.Euler(0f, _doorCloseAngle, 0f);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation2, _rotationSpeed * Time.deltaTime);
         }
     }
