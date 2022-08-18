@@ -9,12 +9,19 @@ public class PlayerInteraction : MonoBehaviour
 
     public int TotalHintCount = 6;
 
+    public GameObject HintScore;
+
+    HintScore _hintScore;
+
     public bool IsFinal { get; private set; }
     public bool IsShowAgain { get; private set; }
 
     void Start()
     {
         _getHintCount = 0;
+        _hintScore = HintScore.GetComponent<HintScore>();
+
+        _hintScore.UpdateText(_getHintCount, TotalHintCount);
     }
 
     void Update()
@@ -72,6 +79,8 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     hit.collider.gameObject.SetActive(false);
                     ++_getHintCount;
+
+                    _hintScore.UpdateText(_getHintCount, TotalHintCount);
 
                     if (_getHintCount < TotalHintCount)
                     {

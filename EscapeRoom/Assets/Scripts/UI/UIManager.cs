@@ -9,16 +9,6 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject FinalHintUI;
     public GameObject ShowAgainUI;
 
-    void Start()
-    {
-        
-    }
-
-
-    void FixedUpdate()
-    {
-    }
-
     public void OnDoorInteractionUI()
     {
         InteractionUI.SetActive(true);
