@@ -11,6 +11,9 @@ TagManager:
   - UpDownDoor
   - Drawer
   - Hint
+  - Bed
+  - Sofa
+  - KeyPad
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - CantSee
   - 
   - 
   - 
