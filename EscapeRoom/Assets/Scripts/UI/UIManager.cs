@@ -13,6 +13,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     public GameObject[] BedTextUI;
     public GameObject[] SofaTextUI;
+    public GameObject[] LockDoorUI;
 
     public UnityEvent ChangeNormal = new UnityEvent();
     public UnityEvent ChangeUnique = new UnityEvent();
@@ -54,7 +55,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
         BedTextUI[index].SetActive(true);
 
-        Invoke("UnshowBedText", 1.2f);
+        Invoke("UnshowBedText", 0.7f);
     }
     public void UnshowBedText()
     {
@@ -75,13 +76,34 @@ public class UIManager : SingletonBehaviour<UIManager>
 
         SofaTextUI[index].SetActive(true);
 
-        Invoke("UnshowSofaText", 1.2f);
+        Invoke("UnshowSofaText", 0.7f);
     }
     public void UnshowSofaText()
     {
         for (int i = 0; i < SofaTextUI.Length; ++i)
         {
             SofaTextUI[i].SetActive(false);
+        }
+    }
+
+    public void ShowLockDoorText()
+    {
+        for (int i = 0; i < LockDoorUI.Length; ++i)
+        {
+            LockDoorUI[i].SetActive(false);
+        }
+
+        int index = Random.Range(0, LockDoorUI.Length);
+
+        LockDoorUI[index].SetActive(true);
+
+        Invoke("UnshowLockDoorText", 0.7f);
+    }
+    public void UnshowLockDoorText()
+    {
+        for (int i = 0; i < LockDoorUI.Length; ++i)
+        {
+            LockDoorUI[i].SetActive(false);
         }
     }
 

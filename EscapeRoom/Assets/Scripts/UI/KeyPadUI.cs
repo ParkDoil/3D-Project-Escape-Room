@@ -44,16 +44,13 @@ public class KeyPadUI : MonoBehaviour
 
     void ChangeCorrect()
     {
-        _ui.text = $"Correct";
-        IsOpen = true;
-        Delay();
+        Door.GetComponent<LeftDoorScript>().ChangeDoorState();
+        UIManager.Instance.ExitKeyPad();
     }
 
     void ChangeIncorrect()
     {
-        _ui.text = $"Incorrect";
-        IsOpen = false;
-        Delay();
+        UIManager.Instance.ExitKeyPad();
     }
 
     void SetInit()
@@ -66,25 +63,6 @@ public class KeyPadUI : MonoBehaviour
         }
 
         _ui.text = $"{_input[0]}{_input[1]}{_input[2]}{_input[3]}";
-    }
-
-    void Delay()
-    {
-        float _elapsedTime = 0f;
-        while (_elapsedTime <= DelayTime)
-        {
-            _elapsedTime += Time.unscaledDeltaTime;
-        }
-
-        if (IsOpen)
-        {
-            Door.GetComponent<LeftDoorScript>().ChangeDoorState();
-            UIManager.Instance.ExitKeyPad();
-        }
-        else
-        {
-            UIManager.Instance.ExitKeyPad();
-        }
     }
 
     void OnDisable()

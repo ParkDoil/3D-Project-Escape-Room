@@ -38,19 +38,17 @@ public class PlayerInteraction : MonoBehaviour
 
             if(hit.collider.CompareTag("MainDoor"))
             {
-                UIManager.Instance.OnInteractionUI();
-                if (Input.GetKeyDown(KeyCode.E))
+                if (hit.collider.transform.GetComponent<MainDoorScript>().IsLock == true)
                 {
-                    if (hit.collider.transform.GetComponent<MainDoorScript>().IsLock == false)
-                    {
-                        hit.collider.transform.GetComponent<LeftDoorScript>().ChangeDoorState();
-                    }
-                    else
-                    {
+                    UIManager.Instance.OnInteractionUI();
 
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        UIManager.Instance.ShowLockDoorText();
                     }
                 }
             }
+
             if (hit.collider.CompareTag("LeftDoor"))
             {
                 UIManager.Instance.OnInteractionUI();
