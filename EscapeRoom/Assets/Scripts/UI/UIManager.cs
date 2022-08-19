@@ -10,6 +10,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject ShowAgainUI;
     public GameObject CameraSettingUI;
     public GameObject KeyPadUI;
+    public GameObject MenuUI;
 
     public GameObject[] BedTextUI;
     public GameObject[] SofaTextUI;
@@ -133,5 +134,16 @@ public class UIManager : SingletonBehaviour<UIManager>
         GameManager.Instance.ClearPassword();
         KeyPadUI.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    public void ShowMenu()
+    {
+        Time.timeScale = 0f;
+        MenuUI.SetActive(true);
+    }
+    public void ExitMenu()
+    {
+        Time.timeScale = 1f;
+        MenuUI.SetActive(false);
     }
 }

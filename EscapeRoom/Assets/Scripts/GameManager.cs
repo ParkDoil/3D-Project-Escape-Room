@@ -43,4 +43,9 @@ public class GameManager : SingletonBehaviour<GameManager>
         KeyPadClear.Invoke();
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
 }
