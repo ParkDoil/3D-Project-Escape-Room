@@ -41,9 +41,9 @@ public class KeyPadScript : MonoBehaviour
         {
             int _correctCount = 0;
 
-            for(int i = 0; i < 4; ++i)
+            for (int i = 0; i < 4; ++i)
             {
-                if(_answer[i] == _input[i])
+                if (_answer[i] == _input[i])
                 {
                     ++_correctCount;
                 }
@@ -55,8 +55,8 @@ public class KeyPadScript : MonoBehaviour
             }
             else
             {
-                GameManager.Instance.PasswordIncorrect();
                 Clear();
+                GameManager.Instance.PasswordIncorrect();
             }
         }
     }

@@ -11,6 +11,11 @@ public class KeyPadUI : MonoBehaviour
 
     private string[] _input = new string[4];
 
+    public GameObject Door;
+    public float DelayTime = 10f;
+
+    public bool IsOpen { get; private set; }
+
     void Awake()
     {
         _ui = GetComponent<TextMeshProUGUI>();
@@ -29,10 +34,6 @@ public class KeyPadUI : MonoBehaviour
         GameManager.Instance.DoorUnlock.RemoveListener(ChangeCorrect);
         GameManager.Instance.DoorUnlock.AddListener(ChangeCorrect);
     }
-    void PrintInit()
-    {
-        _ui.text = $"{_input[0]}{_input[1]}{_input[2]}{_input[3]}";
-    }
 
     void UpdatePad(int _num)
     {
@@ -44,15 +45,15 @@ public class KeyPadUI : MonoBehaviour
     void ChangeCorrect()
     {
         _ui.text = $"Correct";
-        _index = 0;
-
-        
+        IsOpen = true;
+        Delay();
     }
 
     void ChangeIncorrect()
     {
-        _ui.text = "Incorrect";
-        StartCoroutine(Correct());
+        _ui.text = $"Incorrect";
+        IsOpen = false;
+        Delay();
     }
 
     void SetInit()
@@ -63,7 +64,27 @@ public class KeyPadUI : MonoBehaviour
         {
             _input[i] = "_";
         }
-        PrintInit();
+
+        _ui.text = $"{_input[0]}{_input[1]}{_input[2]}{_input[3]}";
+    }
+
+    void Delay()
+    {
+        float _elapsedTime = 0f;
+        while (_elapsedTime <= DelayTime)
+        {
+            _elapsedTime += Time.unscaledDeltaTime;
+        }
+
+        if (IsOpen)
+        {
+            Door.GetComponent<LeftDoorScript>().ChangeDoorState();
+            UIManager.Instance.ExitKeyPad();
+        }
+        else
+        {
+            UIManager.Instance.ExitKeyPad();
+        }
     }
 
     void OnDisable()
@@ -71,12 +92,5 @@ public class KeyPadUI : MonoBehaviour
         GameManager.Instance.InputKeyPad.RemoveListener(UpdatePad);
         GameManager.Instance.DoorLock.RemoveListener(ChangeIncorrect);
         GameManager.Instance.DoorUnlock.RemoveListener(ChangeCorrect);
-        StopAllCoroutines();
-    }
-
-    IEnumerator Correct()
-    {
-        yield return new WaitForSecondsRealtime(1f);
-        SetInit();
     }
 }
