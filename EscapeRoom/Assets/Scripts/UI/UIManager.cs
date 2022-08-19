@@ -9,6 +9,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject FinalHintUI;
     public GameObject ShowAgainUI;
     public GameObject CameraSettingUI;
+    public GameObject KeyPadUI;
 
     public GameObject[] BedTextUI;
     public GameObject[] SofaTextUI;
@@ -97,5 +98,18 @@ public class UIManager : SingletonBehaviour<UIManager>
     public void SettingUnique()
     {
         ChangeUnique.Invoke();
+    }
+
+    public void ShowKeyPad()
+    {
+        KeyPadUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void ExitKeyPad()
+    {
+        GameManager.Instance.ClearPassword();
+        KeyPadUI.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

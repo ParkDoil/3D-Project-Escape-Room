@@ -6,7 +6,6 @@ public class DrawerScript : MonoBehaviour
 {
     public bool Open { get; set; }
     private float _doorOpenPosition = 0.45f;
-    private float _doorClosePosition = 0f;
     private float _moveSpeed = 2f;
 
     Vector3 _dirVec;

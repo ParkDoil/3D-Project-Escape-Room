@@ -35,6 +35,22 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, _interactDiastance))
         {
+
+            if(hit.collider.CompareTag("MainDoor"))
+            {
+                UIManager.Instance.OnInteractionUI();
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (hit.collider.transform.GetComponent<MainDoorScript>().IsLock == false)
+                    {
+                        hit.collider.transform.GetComponent<LeftDoorScript>().ChangeDoorState();
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
             if (hit.collider.CompareTag("LeftDoor"))
             {
                 UIManager.Instance.OnInteractionUI();
@@ -131,6 +147,16 @@ public class PlayerInteraction : MonoBehaviour
                     {
 
                     }
+                }
+            }
+
+            if (hit.collider.CompareTag("KeyPad"))
+            {
+                UIManager.Instance.OnInteractionUI();
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    UIManager.Instance.ShowKeyPad();
                 }
             }
         }
