@@ -36,6 +36,12 @@ public class UIManager : SingletonBehaviour<UIManager>
         FinalHintUI.SetActive(false);
     }
 
+    public void DeleteFinalHintText()
+    {
+        ShowAgainUI.SetActive(false);
+        FinalHintUI.SetActive(false);
+    }
+
     public void ShowBedText()
     {
         for (int i = 0; i < BedTextUI.Length; ++i)

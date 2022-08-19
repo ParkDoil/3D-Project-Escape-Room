@@ -135,7 +135,7 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        if(IsFinal == true)
+        if (IsFinal == true && GetFinalObject == false)
         {
             if(Input.GetKeyDown(KeyCode.F))
             {
@@ -150,6 +150,11 @@ public class PlayerInteraction : MonoBehaviour
                     UIManager.Instance.ExitFinalHintText();
                 }
             }
+        }
+
+        if (GetFinalObject == true)
+        {
+            UIManager.Instance.DeleteFinalHintText();
         }
 
     }
