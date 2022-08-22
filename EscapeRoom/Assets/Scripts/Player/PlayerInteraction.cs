@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    public int TotalHintCount = 6;
+    public int TotalFuseCount = 8;
+
     private float _interactDiastance = 3f;
     private int _getHintCount;
-
-    public int TotalHintCount = 6;
+    private int _getFuseCount;
 
     public GameObject HintScore;
+    public GameObject FuseScore;
 
     private HintScore _hintScore;
     private PlayerSwitching _switching;
@@ -43,6 +46,7 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
+                FuseScore.GetComponent<FuseScore>().UpdateText(_getFuseCount, TotalFuseCount);
                 UniqueInteraction(hit);
             }
             
@@ -74,8 +78,6 @@ public class PlayerInteraction : MonoBehaviour
 
     void BasicIntercation(RaycastHit hit)
     {
-        
-
         if (hit.collider.CompareTag("LeftDoor"))
         {
             UIManager.Instance.OnInteractionUI();
@@ -127,7 +129,7 @@ public class PlayerInteraction : MonoBehaviour
 
                 if (_getHintCount < TotalHintCount)
                 {
-                    ObjectManager.Instance.IsEmpty = true;
+                    ObjectManager.Instance.IsEmptyHint = true;
                 }
 
                 if (_getHintCount >= TotalHintCount)
@@ -179,6 +181,15 @@ public class PlayerInteraction : MonoBehaviour
 
     void UniqueInteraction(RaycastHit hit)
     {
+        if (hit.collider.CompareTag("Drawer"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.transform.GetComponent<AnotherDrawerScript>().ChangeDoorState();
+            }
+        }
+
         if (hit.collider.CompareTag("MainDoor"))
         {
             if (hit.collider.transform.GetComponent<MainDoorScript>().IsLock == true)
@@ -200,6 +211,30 @@ public class PlayerInteraction : MonoBehaviour
             {
                 UIManager.Instance.ShowKeyPad();
             }
+        }
+
+        if (hit.collider.CompareTag("Fuse"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.gameObject.SetActive(false);
+                ++_getFuseCount;
+
+                _hintScore.UpdateText(_getHintCount, TotalHintCount);
+
+                if (_getFuseCount < TotalFuseCount)
+                {
+                    ObjectManager.Instance.IsEmptyHint = true;
+                    ObjectManager.Instance.AlreadyExist = false;
+                }
+
+                if (_getFuseCount >= TotalFuseCount)
+                {
+                    
+                }
+            }
+
         }
     }
 }

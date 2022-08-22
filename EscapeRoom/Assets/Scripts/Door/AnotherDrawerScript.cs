@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawerScript : MonoBehaviour
+public class AnotherDrawerScript : MonoBehaviour
 {
     public bool Open { get; set; }
-    private float _doorOpenPosition = 0.45f;
+    private float _doorOpenPosition = -0.45f;
     private float _moveSpeed = 2f;
 
     Vector3 _dirVec;
@@ -25,7 +25,7 @@ public class DrawerScript : MonoBehaviour
     {
         if (Open)
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition,_dirVec, _moveSpeed * Time.deltaTime);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, _dirVec, _moveSpeed * Time.deltaTime);
         }
         else
         {

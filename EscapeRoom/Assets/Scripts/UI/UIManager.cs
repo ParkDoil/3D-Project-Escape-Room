@@ -11,6 +11,8 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject CameraSettingUI;
     public GameObject KeyPadUI;
     public GameObject MenuUI;
+    public GameObject HintUI;
+    public GameObject FuseUI; 
 
     public GameObject[] BedTextUI;
     public GameObject[] SofaTextUI;
@@ -145,5 +147,16 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         Time.timeScale = 1f;
         MenuUI.SetActive(false);
+    }
+
+    public void ShowFuseUI()
+    {
+        FuseUI.SetActive(true);
+        HintUI.SetActive(false);
+    }
+    public void ExitFuseUI()
+    {
+        FuseUI.SetActive(false);
+        HintUI.SetActive(true);
     }
 }

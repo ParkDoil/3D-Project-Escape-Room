@@ -9,6 +9,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public UnityEvent DoorLock = new UnityEvent();
     public UnityEvent KeyPadClear = new UnityEvent();
     public UnityEvent<int> InputKeyPad = new UnityEvent<int>();
+    public UnityEvent ChangeMode = new UnityEvent();
 
     public GameObject HiddenWall;
     public GameObject FirstQuiz;
@@ -68,6 +69,11 @@ public class GameManager : SingletonBehaviour<GameManager>
             FirstQuiz.SetActive(true);
             SecondQuiz.SetActive(false);
         }
+    }
+
+    public void ModeChange()
+    {
+        ChangeMode.Invoke();
     }
 
 }

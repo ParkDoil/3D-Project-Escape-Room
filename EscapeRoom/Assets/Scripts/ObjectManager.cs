@@ -4,19 +4,32 @@ using UnityEngine;
 
 public class ObjectManager : SingletonBehaviour<ObjectManager>
 {
-    public bool IsEmpty { get; set; }
+    public bool IsEmptyHint { get; set; }
+    public bool IsEmptyFuse { get; set; }
+    public bool AlreadyExist { get; set; }
 
     public GameObject[] HintSpwanPositions;
-
     public GameObject[] Hints;
-
     public GameObject Hint;
 
-    void Start()
+    public GameObject[] FuseSpwanPositions;
+    public GameObject[] Fuses;
+    public GameObject Fuse;
+
+    void OnEnable()
     {
-        IsEmpty = true;
+        GameManager.Instance.ChangeMode.RemoveListener(FuseSet);
+
+        GameManager.Instance.ChangeMode.AddListener(FuseSet);
+    }
+
+    void Awake()
+    {
+        IsEmptyHint = true;
+        IsEmptyFuse = false;
 
         Hints = new GameObject[HintSpwanPositions.Length];
+        Fuses = new GameObject[FuseSpwanPositions.Length];
 
         for (int i = 0; i < HintSpwanPositions.Length; ++i)
         {
@@ -24,16 +37,41 @@ public class ObjectManager : SingletonBehaviour<ObjectManager>
             Hints[i].transform.SetParent(HintSpwanPositions[i].transform, false);
             Hints[i].SetActive(false);
         }
+
+        for (int i = 0; i < FuseSpwanPositions.Length; ++i)
+        {
+            Fuses[i] = Instantiate(Fuse) as GameObject;
+            Fuses[i].transform.SetParent(FuseSpwanPositions[i].transform, false);
+            Fuses[i].SetActive(false);
+        }
     }
 
 
     void Update()
     {
-        if (IsEmpty == true)
+        if (IsEmptyHint == true)
         {
             int randomNumber = Random.Range(0, Hints.Length);
             Hints[randomNumber].SetActive(true);
-            IsEmpty = false;
+            IsEmptyHint = false;
         }
+
+        if (IsEmptyFuse == true && AlreadyExist == false)
+        {
+            int randomNumber = Random.Range(0, Fuses.Length);
+            Fuses[randomNumber].SetActive(true);
+            IsEmptyFuse = false;
+            AlreadyExist = true;
+        }
+    }
+
+    void FuseSet()
+    {
+        IsEmptyFuse = !IsEmptyFuse;
+    }
+
+    void OnDisable()
+    {
+        GameManager.Instance.ChangeMode.RemoveListener(FuseSet);
     }
 }

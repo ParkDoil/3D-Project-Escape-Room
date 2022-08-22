@@ -23,6 +23,7 @@ public class PlayerSwitching : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 CameraSwitching = !CameraSwitching;
+                GameManager.Instance.ModeChange();
             }
         }
 
@@ -31,6 +32,7 @@ public class PlayerSwitching : MonoBehaviour
             BasicCamera.SetActive(false);
             UniqueCamera.SetActive(true);
             UIManager.Instance.SettingUnique();
+            UIManager.Instance.ShowFuseUI();
             GameManager.Instance.IsDoorActive = true;
             GameManager.Instance.DoorActive();
         }
@@ -39,6 +41,7 @@ public class PlayerSwitching : MonoBehaviour
             BasicCamera.SetActive(true);
             UniqueCamera.SetActive(false);
             UIManager.Instance.SettingNomal();
+            UIManager.Instance.ExitFuseUI();
             GameManager.Instance.IsDoorActive = false;
             GameManager.Instance.DoorActive();
         }
