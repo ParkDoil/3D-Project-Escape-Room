@@ -31,12 +31,16 @@ public class PlayerSwitching : MonoBehaviour
             BasicCamera.SetActive(false);
             UniqueCamera.SetActive(true);
             UIManager.Instance.SettingUnique();
+            GameManager.Instance.IsDoorActive = true;
+            GameManager.Instance.DoorActive();
         }
         else
         {
             BasicCamera.SetActive(true);
             UniqueCamera.SetActive(false);
             UIManager.Instance.SettingNomal();
+            GameManager.Instance.IsDoorActive = false;
+            GameManager.Instance.DoorActive();
         }
     }
 }

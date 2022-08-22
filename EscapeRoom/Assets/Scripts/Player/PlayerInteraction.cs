@@ -11,7 +11,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public GameObject HintScore;
 
-    HintScore _hintScore;
+    private HintScore _hintScore;
+    private PlayerSwitching _switching;
 
     public bool IsFinal { get; private set; }
     public bool IsShowAgain { get; private set; }
@@ -22,6 +23,7 @@ public class PlayerInteraction : MonoBehaviour
         GetFinalObject = false;
         _getHintCount = 0;
         _hintScore = HintScore.GetComponent<HintScore>();
+        _switching = GetComponent<PlayerSwitching>();
 
         _hintScore.UpdateText(_getHintCount, TotalHintCount);
     }
@@ -35,128 +37,15 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, _interactDiastance))
         {
-
-            if(hit.collider.CompareTag("MainDoor"))
+            if (_switching.CameraSwitching == false)
             {
-                if (hit.collider.transform.GetComponent<MainDoorScript>().IsLock == true)
-                {
-                    UIManager.Instance.OnInteractionUI();
-
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        UIManager.Instance.ShowLockDoorText();
-                    }
-                }
+                BasicIntercation(hit);
             }
-
-            if (hit.collider.CompareTag("LeftDoor"))
+            else
             {
-                UIManager.Instance.OnInteractionUI();
-                if(Input.GetKeyDown(KeyCode.E))
-                {
-                    hit.collider.transform.GetComponent<LeftDoorScript>().ChangeDoorState();
-                }
+                UniqueInteraction(hit);
             }
-
-            if (hit.collider.CompareTag("RightDoor"))
-            {
-                UIManager.Instance.OnInteractionUI();
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    hit.collider.transform.GetComponent<RightDoorScript>().ChangeDoorState();
-                }
-                
-            }
-
-            if (hit.collider.CompareTag("UpDownDoor"))
-            {
-                UIManager.Instance.OnInteractionUI();
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    hit.collider.transform.GetComponent<UpDownDoorScript>().ChangeDoorState();
-                }
-
-            }
-
-            if (hit.collider.CompareTag("Drawer"))
-            {
-                UIManager.Instance.OnInteractionUI();
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    hit.collider.transform.GetComponent<DrawerScript>().ChangeDoorState();
-                }
-
-            }
-
-            if (hit.collider.CompareTag("Hint"))
-            {
-                UIManager.Instance.OnInteractionUI();
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    hit.collider.gameObject.SetActive(false);
-                    ++_getHintCount;
-
-                    _hintScore.UpdateText(_getHintCount, TotalHintCount);
-
-                    if (_getHintCount < TotalHintCount)
-                    {
-                        ObjectManager.Instance.IsEmpty = true;
-                    }
-
-                    if(_getHintCount >= TotalHintCount)
-                    {
-                        UIManager.Instance.ShowFinalHintText();
-                        IsShowAgain = false;
-                        IsFinal = true;
-                    }
-                }
-
-            }
-
-            if (hit.collider.CompareTag("Bed"))
-            {
-                UIManager.Instance.OnInteractionUI();
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if (IsFinal == false)
-                    {
-                        UIManager.Instance.ShowBedText();
-                    }
-                    else
-                    {
-                        UIManager.Instance.ShowCameraUI();
-                        GetFinalObject = true;
-                    }
-                }
-            }
-
-            if (hit.collider.CompareTag("Sofa"))
-            {
-                UIManager.Instance.OnInteractionUI();
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if (IsFinal == false)
-                    {
-                        UIManager.Instance.ShowSofaText();
-                    }
-                    else
-                    {
-
-                    }
-                }
-            }
-
-            if (hit.collider.CompareTag("KeyPad"))
-            {
-                UIManager.Instance.OnInteractionUI();
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    UIManager.Instance.ShowKeyPad();
-                }
-            }
+            
         }
 
         if (IsFinal == true && GetFinalObject == false)
@@ -181,5 +70,136 @@ public class PlayerInteraction : MonoBehaviour
             UIManager.Instance.DeleteFinalHintText();
         }
 
+    }
+
+    void BasicIntercation(RaycastHit hit)
+    {
+        
+
+        if (hit.collider.CompareTag("LeftDoor"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.transform.GetComponent<LeftDoorScript>().ChangeDoorState();
+            }
+        }
+
+        if (hit.collider.CompareTag("RightDoor"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.transform.GetComponent<RightDoorScript>().ChangeDoorState();
+            }
+
+        }
+
+        if (hit.collider.CompareTag("UpDownDoor"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.transform.GetComponent<UpDownDoorScript>().ChangeDoorState();
+            }
+
+        }
+
+        if (hit.collider.CompareTag("Drawer"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.transform.GetComponent<DrawerScript>().ChangeDoorState();
+            }
+
+        }
+
+        if (hit.collider.CompareTag("Hint"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                hit.collider.gameObject.SetActive(false);
+                ++_getHintCount;
+
+                _hintScore.UpdateText(_getHintCount, TotalHintCount);
+
+                if (_getHintCount < TotalHintCount)
+                {
+                    ObjectManager.Instance.IsEmpty = true;
+                }
+
+                if (_getHintCount >= TotalHintCount)
+                {
+                    UIManager.Instance.ShowFinalHintText();
+                    IsShowAgain = false;
+                    IsFinal = true;
+                }
+            }
+
+        }
+
+        if (hit.collider.CompareTag("Bed"))
+        {
+            UIManager.Instance.OnInteractionUI();
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (IsFinal == false)
+                {
+                    UIManager.Instance.ShowBedText();
+                }
+                else
+                {
+                    UIManager.Instance.ShowCameraUI();
+                    GetFinalObject = true;
+                }
+            }
+        }
+
+        if (hit.collider.CompareTag("Sofa"))
+        {
+            UIManager.Instance.OnInteractionUI();
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (IsFinal == false)
+                {
+                    UIManager.Instance.ShowSofaText();
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+    }
+
+    void UniqueInteraction(RaycastHit hit)
+    {
+        if (hit.collider.CompareTag("MainDoor"))
+        {
+            if (hit.collider.transform.GetComponent<MainDoorScript>().IsLock == true)
+            {
+                UIManager.Instance.OnInteractionUI();
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    UIManager.Instance.ShowLockDoorText();
+                }
+            }
+        }
+
+        if (hit.collider.CompareTag("KeyPad"))
+        {
+            UIManager.Instance.OnInteractionUI();
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                UIManager.Instance.ShowKeyPad();
+            }
+        }
     }
 }

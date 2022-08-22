@@ -10,7 +10,13 @@ public class GameManager : SingletonBehaviour<GameManager>
     public UnityEvent KeyPadClear = new UnityEvent();
     public UnityEvent<int> InputKeyPad = new UnityEvent<int>();
 
+    public GameObject HiddenWall;
+    public GameObject FirstQuiz;
+    public GameObject SecondQuiz;
+
     private int _inputNum = 0;
+
+    public bool IsDoorActive { get; set; }
     public int InputNum
     {
         get
@@ -46,6 +52,22 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void DoorActive()
+    {
+        if (IsDoorActive == true)
+        {
+            HiddenWall.SetActive(false);
+            FirstQuiz.SetActive(false);
+            SecondQuiz.SetActive(true);
+        }
+        else
+        {
+            HiddenWall.SetActive(true);
+            FirstQuiz.SetActive(true);
+            SecondQuiz.SetActive(false);
+        }
     }
 
 }
