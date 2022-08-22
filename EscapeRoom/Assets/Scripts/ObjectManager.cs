@@ -23,7 +23,7 @@ public class ObjectManager : SingletonBehaviour<ObjectManager>
         GameManager.Instance.ChangeMode.AddListener(FuseSet);
     }
 
-    void Awake()
+    void Start()
     {
         IsEmptyHint = true;
         IsEmptyFuse = false;
