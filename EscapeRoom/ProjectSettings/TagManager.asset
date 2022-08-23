@@ -15,8 +15,13 @@ TagManager:
   - Sofa
   - KeyPad
   - MainDoor
-  - Electricity
   - Computer
+  - Fuse
+  - Screen
+  - Projector
+  - PowerSupply
+  - SwitchBoard
+  - Laptop
   layers:
   - Default
   - TransparentFX
