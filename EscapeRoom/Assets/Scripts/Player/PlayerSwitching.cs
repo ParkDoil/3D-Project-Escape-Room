@@ -10,6 +10,7 @@ public class PlayerSwitching : MonoBehaviour
     public GameObject UniqueCamera;
 
     public bool CameraSwitching { get; private set; }
+    public bool Oneshot { get; private set; }
     void Start()
     {
         CameraSwitching = false;
@@ -18,32 +19,37 @@ public class PlayerSwitching : MonoBehaviour
 
     void Update()
     {
+        Oneshot = false;
         if (_interaction.GetFinalObject == true)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
+                Oneshot = true;
                 CameraSwitching = !CameraSwitching;
                 GameManager.Instance.ModeChange();
             }
         }
 
-        if (CameraSwitching == true)
+        if (Oneshot == true)
         {
-            BasicCamera.SetActive(false);
-            UniqueCamera.SetActive(true);
-            UIManager.Instance.SettingUnique();
-            UIManager.Instance.ShowFuseUI();
-            GameManager.Instance.IsDoorActive = true;
-            GameManager.Instance.DoorActive();
-        }
-        else
-        {
-            BasicCamera.SetActive(true);
-            UniqueCamera.SetActive(false);
-            UIManager.Instance.SettingNomal();
-            UIManager.Instance.ExitFuseUI();
-            GameManager.Instance.IsDoorActive = false;
-            GameManager.Instance.DoorActive();
+            if (CameraSwitching == true)
+            {
+                BasicCamera.SetActive(false);
+                UniqueCamera.SetActive(true);
+                UIManager.Instance.SettingUnique();
+                UIManager.Instance.ShowFuseUI();
+                GameManager.Instance.IsDoorActive = true;
+                GameManager.Instance.DoorActive();
+            }
+            else
+            {
+                BasicCamera.SetActive(true);
+                UniqueCamera.SetActive(false);
+                UIManager.Instance.SettingNomal();
+                UIManager.Instance.ExitFuseUI();
+                GameManager.Instance.IsDoorActive = false;
+                GameManager.Instance.DoorActive();
+            }
         }
     }
 }

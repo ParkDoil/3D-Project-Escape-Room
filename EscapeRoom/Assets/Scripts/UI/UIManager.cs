@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class UIManager : SingletonBehaviour<UIManager>
 {
@@ -12,7 +13,10 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject KeyPadUI;
     public GameObject MenuUI;
     public GameObject HintUI;
-    public GameObject FuseUI; 
+    public GameObject FuseUI;
+
+    public GameObject FuseImage;
+    public GameObject ScrollImage;
 
     public GameObject[] BedTextUI;
     public GameObject[] SofaTextUI;
@@ -20,6 +24,21 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     public UnityEvent ChangeNormal = new UnityEvent();
     public UnityEvent ChangeUnique = new UnityEvent();
+
+    private float _prevScrollFillAmount;
+    private float _prevFuseFillAmount;
+
+    private GameObject _scrollFrame;
+    private GameObject _fuseFrame;
+
+    private void Start()
+    {
+        _scrollFrame = ScrollImage.transform.GetChild(0).gameObject;
+        _fuseFrame = FuseImage.transform.GetChild(0).gameObject;
+
+        _scrollFrame.SetActive(false);
+        _fuseFrame.SetActive(false);
+    }
 
     public void OnInteractionUI()
     {
@@ -151,12 +170,56 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     public void ShowFuseUI()
     {
+        _prevScrollFillAmount = ScrollImage.GetComponent<Image>().fillAmount;
+        ScrollImage.GetComponent<Image>().fillAmount = 0f;
         FuseUI.SetActive(true);
         HintUI.SetActive(false);
+        FuseImage.GetComponent<Image>().fillAmount = _prevFuseFillAmount;
+
+        CheakFillAmount();
     }
     public void ExitFuseUI()
     {
+        _prevFuseFillAmount = FuseImage.GetComponent<Image>().fillAmount;
+        FuseImage.GetComponent<Image>().fillAmount = 0f;
         FuseUI.SetActive(false);
         HintUI.SetActive(true);
+        ScrollImage.GetComponent<Image>().fillAmount = _prevScrollFillAmount;
+
+        CheakFillAmount();
+    }
+
+    public void IncreaseHintImage(float _scrollImage)
+    {
+        ScrollImage.GetComponent<Image>().fillAmount += _scrollImage;
+        CheakFillAmount();
+    }
+    public void IncreaseFuseImage(float _fuseImage)
+    {
+        FuseImage.GetComponent<Image>().fillAmount += _fuseImage;
+        CheakFillAmount();
+    }
+
+    public void CheakFillAmount()
+    {
+        if (ScrollImage.GetComponent<Image>().fillAmount >= 1f)
+        {
+            Debug.Log("스크롤프레임 활성화");
+            _scrollFrame.SetActive(true);
+        }
+        else
+        {
+            _scrollFrame.SetActive(false);
+        }
+
+        if (FuseImage.GetComponent<Image>().fillAmount >= 1f)
+        {
+            Debug.Log("퓨즈프레임 활성화");
+            _fuseFrame.SetActive(true);
+        }
+        else
+        {
+            _fuseFrame.SetActive(false);
+        }
     }
 }

@@ -7,6 +7,9 @@ public class PlayerInteraction : MonoBehaviour
     public int TotalHintCount = 6;
     public int TotalFuseCount = 8;
 
+    private float _hintAcount;
+    private float _fuseAcount;
+
     private float _interactDiastance = 3f;
     private int _getHintCount;
     private int _getFuseCount;
@@ -29,6 +32,9 @@ public class PlayerInteraction : MonoBehaviour
         _switching = GetComponent<PlayerSwitching>();
 
         _hintScore.UpdateText(_getHintCount, TotalHintCount);
+
+        _hintAcount = (float)1 / (float)TotalHintCount;
+        _fuseAcount = (float)1 / (float)TotalFuseCount;
     }
 
     void Update()
@@ -126,6 +132,7 @@ public class PlayerInteraction : MonoBehaviour
                 ++_getHintCount;
 
                 _hintScore.UpdateText(_getHintCount, TotalHintCount);
+                UIManager.Instance.IncreaseHintImage(_hintAcount);
 
                 if (_getHintCount < TotalHintCount)
                 {
@@ -222,10 +229,11 @@ public class PlayerInteraction : MonoBehaviour
                 ++_getFuseCount;
 
                 _hintScore.UpdateText(_getHintCount, TotalHintCount);
+                UIManager.Instance.IncreaseFuseImage(_fuseAcount);
 
                 if (_getFuseCount < TotalFuseCount)
                 {
-                    ObjectManager.Instance.IsEmptyHint = true;
+                    ObjectManager.Instance.IsEmptyFuse = true;
                     ObjectManager.Instance.AlreadyExist = false;
                 }
 
