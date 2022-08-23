@@ -43,6 +43,12 @@ public class PlayerInteraction : MonoBehaviour
         _fuseAcount = (float)1 / (float)TotalFuseCount;
     }
 
+    void OnEnable()
+    {
+        UIManager.Instance.FixFuse.RemoveListener(FixedSupply);
+        UIManager.Instance.FixFuse.AddListener(FixedSupply);
+    }
+
     void Update()
     {
         UIManager.Instance.OffInteractionUI();
@@ -256,7 +262,7 @@ public class PlayerInteraction : MonoBehaviour
                 UIManager.Instance.OnInteractionUI();
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-
+                    UIManager.Instance.ShowSupplyPanel();
                 }
             }
 
@@ -312,5 +318,15 @@ public class PlayerInteraction : MonoBehaviour
             }
 
         }
+    }
+
+    void FixedSupply()
+    {
+        FixSupply = true;
+    }
+
+    void OnDisable()
+    {
+        UIManager.Instance.FixFuse.RemoveListener(FixedSupply);
     }
 }

@@ -14,6 +14,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject MenuUI;
     public GameObject HintUI;
     public GameObject FuseUI;
+    public GameObject SupplyPanel;
 
     public GameObject FuseImage;
     public GameObject ScrollImage;
@@ -25,6 +26,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     public UnityEvent ChangeNormal = new UnityEvent();
     public UnityEvent ChangeUnique = new UnityEvent();
+    public UnityEvent FixFuse = new UnityEvent();
 
     private float _prevScrollFillAmount;
     private float _prevFuseFillAmount;
@@ -251,5 +253,21 @@ public class UIManager : SingletonBehaviour<UIManager>
         {
             _fuseFrame.SetActive(false);
         }
+    }
+
+    public void FixSupply()
+    {
+        FixFuse.Invoke();
+    }
+
+    public void ShowSupplyPanel()
+    {
+        SupplyPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void ExitSupplyPanel()
+    {
+        SupplyPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 }
