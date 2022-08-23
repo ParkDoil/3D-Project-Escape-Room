@@ -21,6 +21,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject[] BedTextUI;
     public GameObject[] SofaTextUI;
     public GameObject[] LockDoorUI;
+    public GameObject[] LaptopUI;
 
     public UnityEvent ChangeNormal = new UnityEvent();
     public UnityEvent ChangeUnique = new UnityEvent();
@@ -31,8 +32,11 @@ public class UIManager : SingletonBehaviour<UIManager>
     private GameObject _scrollFrame;
     private GameObject _fuseFrame;
 
+    public bool IsPossibleInteraction { get; private set; }
+
     private void Start()
     {
+        IsPossibleInteraction = true;
         _scrollFrame = ScrollImage.transform.GetChild(0).gameObject;
         _fuseFrame = FuseImage.transform.GetChild(0).gameObject;
 
@@ -68,6 +72,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     public void ShowBedText()
     {
+        IsPossibleInteraction = false;
         for (int i = 0; i < BedTextUI.Length; ++i)
         {
             BedTextUI[i].SetActive(false);
@@ -81,6 +86,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     }
     public void UnshowBedText()
     {
+        IsPossibleInteraction = true;
         for (int i = 0; i < BedTextUI.Length; ++i)
         {
             BedTextUI[i].SetActive(false);
@@ -89,6 +95,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     public void ShowSofaText()
     {
+        IsPossibleInteraction = false;
         for (int i = 0; i < SofaTextUI.Length; ++i)
         {
             SofaTextUI[i].SetActive(false);
@@ -102,14 +109,38 @@ public class UIManager : SingletonBehaviour<UIManager>
     }
     public void UnshowSofaText()
     {
+        IsPossibleInteraction = true;
         for (int i = 0; i < SofaTextUI.Length; ++i)
         {
             SofaTextUI[i].SetActive(false);
         }
     }
+    public void ShowLaptopText()
+    {
+        IsPossibleInteraction = false;
+        for (int i = 0; i < LaptopUI.Length; ++i)
+        {
+            LaptopUI[i].SetActive(false);
+        }
+
+        int index = Random.Range(0, LaptopUI.Length);
+
+        LaptopUI[index].SetActive(true);
+
+        Invoke("UnshowSofaText", 0.7f);
+    }
+    public void UnshowLaptopText()
+    {
+        IsPossibleInteraction = true;
+        for (int i = 0; i < LaptopUI.Length; ++i)
+        {
+            LaptopUI[i].SetActive(false);
+        }
+    }
 
     public void ShowLockDoorText()
     {
+        IsPossibleInteraction = false;
         for (int i = 0; i < LockDoorUI.Length; ++i)
         {
             LockDoorUI[i].SetActive(false);
@@ -123,6 +154,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     }
     public void UnshowLockDoorText()
     {
+        IsPossibleInteraction = true;
         for (int i = 0; i < LockDoorUI.Length; ++i)
         {
             LockDoorUI[i].SetActive(false);
@@ -204,7 +236,6 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         if (ScrollImage.GetComponent<Image>().fillAmount >= 1f)
         {
-            Debug.Log("스크롤프레임 활성화");
             _scrollFrame.SetActive(true);
         }
         else
@@ -214,7 +245,6 @@ public class UIManager : SingletonBehaviour<UIManager>
 
         if (FuseImage.GetComponent<Image>().fillAmount >= 1f)
         {
-            Debug.Log("퓨즈프레임 활성화");
             _fuseFrame.SetActive(true);
         }
         else

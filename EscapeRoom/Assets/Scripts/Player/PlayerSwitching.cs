@@ -20,7 +20,7 @@ public class PlayerSwitching : MonoBehaviour
     void Update()
     {
         Oneshot = false;
-        if (_interaction.GetFinalObject == true)
+        if (_interaction.GetSwitchObject == true)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {

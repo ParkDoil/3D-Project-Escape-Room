@@ -22,11 +22,17 @@ public class PlayerInteraction : MonoBehaviour
 
     public bool IsFinal { get; private set; }
     public bool IsShowAgain { get; private set; }
-    public bool GetFinalObject { get; private set; }
+    public bool GetSwitchObject { get; private set; }
+    public bool GetFuse { get; private set; }
+    public bool FixSupply { get; private set; }
+    public bool SolveSwitchBoard { get; private set; }
 
     void Start()
     {
-        GetFinalObject = false;
+        GetSwitchObject = false;
+        GetFuse = false;
+        FixSupply = false;
+        SolveSwitchBoard = false;
         _getHintCount = 0;
         _hintScore = HintScore.GetComponent<HintScore>();
         _switching = GetComponent<PlayerSwitching>();
@@ -58,7 +64,7 @@ public class PlayerInteraction : MonoBehaviour
             
         }
 
-        if (IsFinal == true && GetFinalObject == false)
+        if (IsFinal == true && GetSwitchObject == false)
         {
             if(Input.GetKeyDown(KeyCode.F))
             {
@@ -75,7 +81,7 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        if (GetFinalObject == true)
+        if (GetSwitchObject == true)
         {
             UIManager.Instance.DeleteFinalHintText();
         }
@@ -152,17 +158,19 @@ public class PlayerInteraction : MonoBehaviour
         if (hit.collider.CompareTag("Bed"))
         {
             UIManager.Instance.OnInteractionUI();
-
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (IsFinal == false)
                 {
-                    UIManager.Instance.ShowBedText();
+                    if (UIManager.Instance.IsPossibleInteraction == true)
+                    {
+                        UIManager.Instance.ShowBedText();
+                    }
                 }
                 else
                 {
                     UIManager.Instance.ShowCameraUI();
-                    GetFinalObject = true;
+                    GetSwitchObject = true;
                 }
             }
         }
@@ -170,16 +178,11 @@ public class PlayerInteraction : MonoBehaviour
         if (hit.collider.CompareTag("Sofa"))
         {
             UIManager.Instance.OnInteractionUI();
-
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (IsFinal == false)
+                if (UIManager.Instance.IsPossibleInteraction == true)
                 {
                     UIManager.Instance.ShowSofaText();
-                }
-                else
-                {
-
                 }
             }
         }
@@ -202,10 +205,12 @@ public class PlayerInteraction : MonoBehaviour
             if (hit.collider.transform.GetComponent<MainDoorScript>().IsLock == true)
             {
                 UIManager.Instance.OnInteractionUI();
-
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    UIManager.Instance.ShowLockDoorText();
+                    if (UIManager.Instance.IsPossibleInteraction == true)
+                    {
+                        UIManager.Instance.ShowLockDoorText();
+                    }
                 }
             }
         }
@@ -213,7 +218,6 @@ public class PlayerInteraction : MonoBehaviour
         if (hit.collider.CompareTag("KeyPad"))
         {
             UIManager.Instance.OnInteractionUI();
-
             if (Input.GetKeyDown(KeyCode.E))
             {
                 UIManager.Instance.ShowKeyPad();
@@ -239,7 +243,71 @@ public class PlayerInteraction : MonoBehaviour
 
                 if (_getFuseCount >= TotalFuseCount)
                 {
-                    
+                    GetFuse = true;
+                }
+            }
+
+        }
+
+        if (hit.collider.CompareTag("PowerSupply"))
+        {
+            if (GetFuse == true)
+            {
+                UIManager.Instance.OnInteractionUI();
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+
+                }
+            }
+
+        }
+
+        if (hit.collider.CompareTag("SwitchBoard"))
+        {
+            if (FixSupply == true)
+            {
+                UIManager.Instance.OnInteractionUI();
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+
+                }
+            }
+
+        }
+
+        if (hit.collider.CompareTag("Projector"))
+        {
+            if (SolveSwitchBoard == true)
+            {
+                UIManager.Instance.OnInteractionUI();
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+
+                }
+            }
+
+        }
+
+        
+
+        if (hit.collider.CompareTag("Computer"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+
+            }
+
+        }
+
+        if (hit.collider.CompareTag("Laptop"))
+        {
+            UIManager.Instance.OnInteractionUI();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (UIManager.Instance.IsPossibleInteraction == true)
+                {
+                    UIManager.Instance.ShowLaptopText();
                 }
             }
 
