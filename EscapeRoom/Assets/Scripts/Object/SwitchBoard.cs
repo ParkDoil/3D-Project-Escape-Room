@@ -29,6 +29,7 @@ public class SwitchBoard : MonoBehaviour
             IsOn = false;
             RelatedRight.GetComponent<Image>().color = new Color(255f, 0f, 0f, 255f);
             GameManager.Instance.ElectricitySupply(IsOn);
+            GameManager.Instance.TurnOffProjector();
         }
     }
 }

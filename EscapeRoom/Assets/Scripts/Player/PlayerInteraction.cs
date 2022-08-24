@@ -26,6 +26,8 @@ public class PlayerInteraction : MonoBehaviour
     public bool GetFuse { get; private set; }
     public bool FixSupply { get; private set; }
     public bool SolveSwitchBoard { get; private set; }
+    public bool IsOnProjector { get; private set; }
+    public bool IsUnlockComputer { get; private set; }
 
     void Start()
     {
@@ -53,6 +55,9 @@ public class PlayerInteraction : MonoBehaviour
 
         GameManager.Instance.Negative.RemoveListener(ChangeStatusFalse);
         GameManager.Instance.Negative.AddListener(ChangeStatusFalse);
+
+        GameManager.Instance.ComputerUnlock.RemoveListener(InteractionComputer);
+        GameManager.Instance.ComputerUnlock.AddListener(InteractionComputer);
     }
 
     void Update()
@@ -118,7 +123,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 hit.collider.transform.GetComponent<RightDoorScript>().ChangeDoorState();
             }
-
         }
 
         if (hit.collider.CompareTag("UpDownDoor"))
@@ -128,7 +132,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 hit.collider.transform.GetComponent<UpDownDoorScript>().ChangeDoorState();
             }
-
         }
 
         if (hit.collider.CompareTag("Drawer"))
@@ -138,7 +141,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 hit.collider.transform.GetComponent<DrawerScript>().ChangeDoorState();
             }
-
         }
 
         if (hit.collider.CompareTag("Hint"))
@@ -258,7 +260,6 @@ public class PlayerInteraction : MonoBehaviour
                     GetFuse = true;
                 }
             }
-
         }
 
         if (hit.collider.CompareTag("PowerSupply"))
@@ -271,7 +272,6 @@ public class PlayerInteraction : MonoBehaviour
                     UIManager.Instance.ShowSupplyPanel();
                 }
             }
-
         }
 
         if (hit.collider.CompareTag("SwitchBoard"))
@@ -284,7 +284,6 @@ public class PlayerInteraction : MonoBehaviour
                     UIManager.Instance.ShowSwitchBoard();
                 }
             }
-
         }
 
         if (hit.collider.CompareTag("Projector"))
@@ -294,22 +293,33 @@ public class PlayerInteraction : MonoBehaviour
                 UIManager.Instance.OnInteractionUI();
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-
+                    IsOnProjector = !IsOnProjector;
+                    if (IsOnProjector == true)
+                    {
+                        GameManager.Instance.TurnOnProjector();
+                    }
+                    else
+                    {
+                        GameManager.Instance.TurnOffProjector();
+                    }
                 }
             }
-
         }
-
-        
 
         if (hit.collider.CompareTag("Computer"))
         {
             UIManager.Instance.OnInteractionUI();
             if (Input.GetKeyDown(KeyCode.E))
             {
-
+                if (IsUnlockComputer == true)
+                {
+                    UIManager.Instance.ShowUnlockComputerUI();
+                }
+                else
+                {
+                    UIManager.Instance.ShowLockComputerUI();
+                }
             }
-
         }
 
         if (hit.collider.CompareTag("Laptop"))
@@ -322,7 +332,6 @@ public class PlayerInteraction : MonoBehaviour
                     UIManager.Instance.ShowLaptopText();
                 }
             }
-
         }
     }
 
@@ -341,10 +350,16 @@ public class PlayerInteraction : MonoBehaviour
         SolveSwitchBoard = false;
     }
 
+    void InteractionComputer()
+    {
+        IsUnlockComputer = true;
+    }
+
     void OnDisable()
     {
         UIManager.Instance.FixFuse.RemoveListener(FixedSupply);
         GameManager.Instance.Positive.RemoveListener(ChangeStatusTrue);
         GameManager.Instance.Negative.RemoveListener(ChangeStatusFalse);
+        GameManager.Instance.ComputerUnlock.RemoveListener(InteractionComputer);
     }
 }

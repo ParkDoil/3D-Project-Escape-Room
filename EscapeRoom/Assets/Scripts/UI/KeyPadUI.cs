@@ -12,7 +12,6 @@ public class KeyPadUI : MonoBehaviour
     private string[] _input = new string[4];
 
     public GameObject Door;
-    public float DelayTime = 10f;
 
     public bool IsOpen { get; private set; }
 

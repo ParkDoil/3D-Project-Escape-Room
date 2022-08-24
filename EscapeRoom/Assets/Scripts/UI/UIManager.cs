@@ -16,6 +16,8 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject FuseUI;
     public GameObject SupplyPanel;
     public GameObject SwitchBoardUI;
+    public GameObject LockComputerUI;
+    public GameObject UnlockComputerUI;
 
     public GameObject FuseImage;
     public GameObject ScrollImage;
@@ -280,6 +282,35 @@ public class UIManager : SingletonBehaviour<UIManager>
     public void ExitSwitchBoard()
     {
         SwitchBoardUI.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void ShowLockComputerUI()
+    {
+        LockComputerUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void ExitLockComputerUI()
+    {
+        GameManager.Instance.ClearNumPad();
+        LockComputerUI.SetActive(false);
+        Time.timeScale = 1f;
+    }
+    public void ShowComputerPassword()
+    {
+        KeyPadUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void ShowUnlockComputerUI()
+    {
+        UnlockComputerUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void ExitUnlockComputerUI()
+    {
+        UnlockComputerUI.SetActive(false);
         Time.timeScale = 1f;
     }
 }

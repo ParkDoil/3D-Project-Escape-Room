@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyPadScript : MonoBehaviour
+public class ComputerNumpad : MonoBehaviour
 {
     private int[] _answer = new int[4];
     private int[] _input = new int[4];
@@ -10,16 +10,19 @@ public class KeyPadScript : MonoBehaviour
 
     void Start()
     {
-        _answer[0] = 8;
-        _answer[1] = 7;
-        _answer[2] = 3;
-        _answer[3] = 9;
+        _answer[0] = 4;
+        _answer[1] = 3;
+        _answer[2] = 5;
+        _answer[3] = 8;
+    }
 
-        GameManager.Instance.KeyPadClear.RemoveListener(Clear);
-        GameManager.Instance.KeyPadClear.AddListener(Clear);
+    void OnEnable()
+    {
+        GameManager.Instance.InputNumPad.RemoveListener(PushButton);
+        GameManager.Instance.InputNumPad.AddListener(PushButton);
 
-        GameManager.Instance.InputKeyPad.RemoveListener(PushButton);
-        GameManager.Instance.InputKeyPad.AddListener(PushButton);
+        GameManager.Instance.NumPadClear.RemoveListener(Clear);
+        GameManager.Instance.NumPadClear.AddListener(Clear);
     }
 
     void Clear()
@@ -46,19 +49,19 @@ public class KeyPadScript : MonoBehaviour
 
             if (_correctCount == 4)
             {
-                GameManager.Instance.PasswordCorrect();
+                UIManager.Instance.ExitLockComputerUI();
+                GameManager.Instance.ComputerPasswordCorrect();
             }
             else
             {
                 Clear();
-                GameManager.Instance.PasswordIncorrect();
+                UIManager.Instance.ExitLockComputerUI();
             }
         }
     }
 
     void OnDisable()
     {
-        GameManager.Instance.KeyPadClear.RemoveListener(Clear);
-        GameManager.Instance.InputKeyPad.RemoveListener(PushButton);
+        GameManager.Instance.InputNumPad.RemoveListener(PushButton);
     }
 }
