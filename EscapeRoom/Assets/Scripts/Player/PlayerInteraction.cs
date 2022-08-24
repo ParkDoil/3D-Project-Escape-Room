@@ -47,6 +47,12 @@ public class PlayerInteraction : MonoBehaviour
     {
         UIManager.Instance.FixFuse.RemoveListener(FixedSupply);
         UIManager.Instance.FixFuse.AddListener(FixedSupply);
+
+        GameManager.Instance.Positive.RemoveListener(ChangeStatusTrue);
+        GameManager.Instance.Positive.AddListener(ChangeStatusTrue);
+
+        GameManager.Instance.Negative.RemoveListener(ChangeStatusFalse);
+        GameManager.Instance.Negative.AddListener(ChangeStatusFalse);
     }
 
     void Update()
@@ -275,7 +281,7 @@ public class PlayerInteraction : MonoBehaviour
                 UIManager.Instance.OnInteractionUI();
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-
+                    UIManager.Instance.ShowSwitchBoard();
                 }
             }
 
@@ -325,8 +331,20 @@ public class PlayerInteraction : MonoBehaviour
         FixSupply = true;
     }
 
+    void ChangeStatusTrue()
+    {
+        SolveSwitchBoard = true;
+    }
+
+    void ChangeStatusFalse()
+    {
+        SolveSwitchBoard = false;
+    }
+
     void OnDisable()
     {
         UIManager.Instance.FixFuse.RemoveListener(FixedSupply);
+        GameManager.Instance.Positive.RemoveListener(ChangeStatusTrue);
+        GameManager.Instance.Negative.RemoveListener(ChangeStatusFalse);
     }
 }

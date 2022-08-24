@@ -10,6 +10,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     public UnityEvent KeyPadClear = new UnityEvent();
     public UnityEvent<int> InputKeyPad = new UnityEvent<int>();
     public UnityEvent ChangeMode = new UnityEvent();
+    public UnityEvent Positive = new UnityEvent();
+    public UnityEvent Negative = new UnityEvent();
 
     public GameObject HiddenWall;
     public GameObject FirstQuiz;
@@ -76,4 +78,15 @@ public class GameManager : SingletonBehaviour<GameManager>
         ChangeMode.Invoke();
     }
 
+    public void ElectricitySupply(bool isOn)
+    {
+        if (isOn == true)
+        {
+            Positive.Invoke();
+        }
+        else
+        {
+            Negative.Invoke();
+        }
+    }
 }

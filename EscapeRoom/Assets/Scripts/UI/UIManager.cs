@@ -15,6 +15,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject HintUI;
     public GameObject FuseUI;
     public GameObject SupplyPanel;
+    public GameObject SwitchBoardUI;
 
     public GameObject FuseImage;
     public GameObject ScrollImage;
@@ -268,6 +269,17 @@ public class UIManager : SingletonBehaviour<UIManager>
     public void ExitSupplyPanel()
     {
         SupplyPanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void ShowSwitchBoard()
+    {
+        SwitchBoardUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void ExitSwitchBoard()
+    {
+        SwitchBoardUI.SetActive(false);
         Time.timeScale = 1f;
     }
 }
