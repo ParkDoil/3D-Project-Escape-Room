@@ -4552,7 +4552,7 @@ MonoBehaviour:
   - {fileID: 1314207883}
   - {fileID: 594289920}
   Hints: []
-  Hint: {fileID: 6209363298120718941, guid: 0e3296d5483281d40a70b479740549c0, type: 3}
+  Hint: {fileID: 4769104102414731177, guid: 1e138b63ea64fce4e92106e8927ebbfa, type: 3}
   FuseSpwanPositions:
   - {fileID: 1774555809}
   - {fileID: 1428294697}
@@ -4573,7 +4573,7 @@ MonoBehaviour:
   - {fileID: 1098423650}
   - {fileID: 1630495729}
   Fuses: []
-  Fuse: {fileID: 3411675965399593037, guid: 2ec12e4d2b014284383484f68e098d60, type: 3}
+  Fuse: {fileID: 4769104102414731177, guid: d580a25c876d725408a1e3a135795c4f, type: 3}
 --- !u!4 &318615752
 Transform:
   m_ObjectHideFlags: 0
@@ -13217,6 +13217,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Negative:
+    m_PersistentCalls:
+      m_Calls: []
+  StopMove:
+    m_PersistentCalls:
+      m_Calls: []
+  ContinueMove:
     m_PersistentCalls:
       m_Calls: []
   HiddenWall: {fileID: 937235946}
@@ -27567,7 +27573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1758965047, guid: 0dfb2ac0eefed144d951a8262b8f1c04, type: 3}
       propertyPath: TotalHintCount
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5531040010449887328, guid: 0dfb2ac0eefed144d951a8262b8f1c04, type: 3}
       propertyPath: m_RootOrder

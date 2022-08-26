@@ -53,6 +53,7 @@ public class ObjectManager : SingletonBehaviour<ObjectManager>
         {
             int randomNumber = Random.Range(0, Hints.Length);
             Hints[randomNumber].SetActive(true);
+            Hints[randomNumber].GetComponent<AudioSource>().Play();
             IsEmptyHint = false;
         }
 
@@ -60,6 +61,7 @@ public class ObjectManager : SingletonBehaviour<ObjectManager>
         {
             int randomNumber = Random.Range(0, Fuses.Length);
             Fuses[randomNumber].SetActive(true);
+            Fuses[randomNumber].GetComponent<AudioSource>().Play();
             IsEmptyFuse = false;
             AlreadyExist = true;
         }
