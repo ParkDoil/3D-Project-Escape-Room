@@ -311,12 +311,6 @@ public class UIManager : SingletonBehaviour<UIManager>
         UIClose.Invoke();
         Time.timeScale = 1f;
     }
-    //public void ShowComputerPassword()
-    //{
-    //    KeyPadUI.SetActive(true);
-    //    UIOpen.Invoke();
-    //    Time.timeScale = 0f;
-    //}
 
     public void ShowUnlockComputerUI()
     {

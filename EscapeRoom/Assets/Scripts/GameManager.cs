@@ -15,6 +15,8 @@ public class GameManager : SingletonBehaviour<GameManager>
     public UnityEvent ChangeMode = new UnityEvent();
     public UnityEvent Positive = new UnityEvent();
     public UnityEvent Negative = new UnityEvent();
+    public UnityEvent StopMove = new UnityEvent();
+    public UnityEvent ContinueMove = new UnityEvent();
 
     public GameObject HiddenWall;
     public GameObject FirstQuiz;
@@ -130,5 +132,15 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void TurnOffProjector()
     {
         PasswordHint.SetActive(false);
+    }
+
+    public void PlayerStop()
+    {
+        StopMove.Invoke();
+    }
+
+    public void PlayerMove()
+    {
+        ContinueMove.Invoke();
     }
 }

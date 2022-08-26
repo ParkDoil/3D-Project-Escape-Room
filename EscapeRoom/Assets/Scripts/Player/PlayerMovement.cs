@@ -15,25 +15,39 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 dir = Vector3.zero;
 
-    public bool Iscollision { get; set; }
+    public bool Iscollision { get; private set; }
+    public bool CanMove { get; private set; }
 
     void Awake()
     {
+        CanMove = true;
         _input = GetComponent<PlayerInput>();
         _rigid = GetComponent<Rigidbody>();
     }
 
+    void OnEnable()
+    {
+        GameManager.Instance.StopMove.RemoveListener(DontMove);
+        GameManager.Instance.ContinueMove.RemoveListener(DoMove);
+
+        GameManager.Instance.StopMove.AddListener(DontMove);
+        GameManager.Instance.ContinueMove.AddListener(DoMove);
+    }
+
     void FixedUpdate()
     {
-        dir.x = _input.X;
-        dir.z = _input.Z;
-
-        if (dir != Vector3.zero)
+        if (CanMove == true)
         {
-            Move(dir);
-        }
+            dir.x = _input.X;
+            dir.z = _input.Z;
 
-        Look();
+            if (dir != Vector3.zero)
+            {
+                Move(dir);
+            }
+
+            Look();
+        }
     }
 
     void Move(Vector3 direction)
@@ -76,5 +90,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Iscollision = false;
         }
+    }
+
+    void DontMove()
+    {
+        CanMove = false;
+    }
+    
+    void DoMove()
+    {
+        CanMove = true;
     }
 }

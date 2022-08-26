@@ -21,6 +21,7 @@ public class Blink : MonoBehaviour
 
     void Blinking()
     {
+        GameManager.Instance.PlayerStop();
         StopAllCoroutines();
         _fadeCount = 1f;
         _ui.color = new Color(0f, 0f, 0f, _fadeCount);
@@ -35,6 +36,8 @@ public class Blink : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
             _ui.color = new Color(0f, 0f, 0f, _fadeCount);
         }
+
+        GameManager.Instance.PlayerMove();
     }
 
     void OnDisable()
