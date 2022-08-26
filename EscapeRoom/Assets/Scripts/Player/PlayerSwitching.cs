@@ -11,10 +11,22 @@ public class PlayerSwitching : MonoBehaviour
 
     public bool CameraSwitching { get; private set; }
     public bool Oneshot { get; private set; }
+    public bool CanChange { get; private set; }
     void Start()
     {
+        CanChange = true;
         CameraSwitching = false;
         _interaction = GetComponent<PlayerInteraction>();
+    }
+
+    void OnEnable()
+    {
+        UIManager.Instance.UIOpen.RemoveListener(UIOpenStatus);
+        UIManager.Instance.UIOpen.AddListener(UIOpenStatus);
+
+        UIManager.Instance.UIClose.RemoveListener(UICloseStatus);
+        UIManager.Instance.UIClose.AddListener(UICloseStatus);
+
     }
 
     void Update()
@@ -24,10 +36,13 @@ public class PlayerSwitching : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                Oneshot = true;
-                CameraSwitching = !CameraSwitching;
-                GameManager.Instance.ModeChange();
-                UIManager.Instance.ModeChange();
+                if (CanChange == true)
+                {
+                    Oneshot = true;
+                    CameraSwitching = !CameraSwitching;
+                    GameManager.Instance.ModeChange();
+                    UIManager.Instance.ModeChange();
+                }
             }
         }
 
@@ -52,5 +67,21 @@ public class PlayerSwitching : MonoBehaviour
                 GameManager.Instance.DoorActive();
             }
         }
+    }
+
+    void UIOpenStatus()
+    {
+        CanChange = false;
+    }
+
+    void UICloseStatus()
+    {
+        CanChange = true;
+    }
+
+    void OnDisable()
+    {
+        UIManager.Instance.UIOpen.RemoveListener(UIOpenStatus);
+        UIManager.Instance.UIClose.RemoveListener(UICloseStatus);
     }
 }

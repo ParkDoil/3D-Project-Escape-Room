@@ -32,6 +32,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     public UnityEvent FixFuse = new UnityEvent();
     public UnityEvent Blink = new UnityEvent();
     public UnityEvent UIOpen = new UnityEvent();
+    public UnityEvent UIClose = new UnityEvent();
 
     private float _prevScrollFillAmount;
     private float _prevFuseFillAmount;
@@ -187,6 +188,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     public void ShowKeyPad()
     {
         KeyPadUI.SetActive(true);
+        UIOpen.Invoke();
         Time.timeScale = 0f;
     }
 
@@ -194,17 +196,20 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         GameManager.Instance.ClearPassword();
         KeyPadUI.SetActive(false);
+        UIClose.Invoke();
         Time.timeScale = 1f;
     }
 
     public void ShowMenu()
     {
         Time.timeScale = 0f;
+        UIOpen.Invoke();
         MenuUI.SetActive(true);
     }
     public void ExitMenu()
     {
         Time.timeScale = 1f;
+        UIClose.Invoke();
         MenuUI.SetActive(false);
     }
 
@@ -269,10 +274,12 @@ public class UIManager : SingletonBehaviour<UIManager>
     public void ShowSupplyPanel()
     {
         SupplyPanel.SetActive(true);
+        UIOpen.Invoke();
         Time.timeScale = 0f;
     }
     public void ExitSupplyPanel()
     {
+        UIClose.Invoke();
         SupplyPanel.SetActive(false);
         Time.timeScale = 1f;
     }
@@ -280,17 +287,20 @@ public class UIManager : SingletonBehaviour<UIManager>
     public void ShowSwitchBoard()
     {
         SwitchBoardUI.SetActive(true);
+        UIOpen.Invoke();
         Time.timeScale = 0f;
     }
     public void ExitSwitchBoard()
     {
         SwitchBoardUI.SetActive(false);
+        UIClose.Invoke();
         Time.timeScale = 1f;
     }
 
     public void ShowLockComputerUI()
     {
         LockComputerUI.SetActive(true);
+        UIOpen.Invoke();
         Time.timeScale = 0f;
     }
 
@@ -298,22 +308,26 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         GameManager.Instance.ClearNumPad();
         LockComputerUI.SetActive(false);
+        UIClose.Invoke();
         Time.timeScale = 1f;
     }
-    public void ShowComputerPassword()
-    {
-        KeyPadUI.SetActive(true);
-        Time.timeScale = 0f;
-    }
+    //public void ShowComputerPassword()
+    //{
+    //    KeyPadUI.SetActive(true);
+    //    UIOpen.Invoke();
+    //    Time.timeScale = 0f;
+    //}
 
     public void ShowUnlockComputerUI()
     {
         UnlockComputerUI.SetActive(true);
+        UIOpen.Invoke();
         Time.timeScale = 0f;
     }
     public void ExitUnlockComputerUI()
     {
         UnlockComputerUI.SetActive(false);
+        UIClose.Invoke();
         Time.timeScale = 1f;
     }
     
