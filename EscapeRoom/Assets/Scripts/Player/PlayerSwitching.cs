@@ -27,6 +27,7 @@ public class PlayerSwitching : MonoBehaviour
                 Oneshot = true;
                 CameraSwitching = !CameraSwitching;
                 GameManager.Instance.ModeChange();
+                UIManager.Instance.ModeChange();
             }
         }
 

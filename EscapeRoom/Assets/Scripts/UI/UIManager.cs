@@ -30,12 +30,15 @@ public class UIManager : SingletonBehaviour<UIManager>
     public UnityEvent ChangeNormal = new UnityEvent();
     public UnityEvent ChangeUnique = new UnityEvent();
     public UnityEvent FixFuse = new UnityEvent();
+    public UnityEvent Blink = new UnityEvent();
+    public UnityEvent UIOpen = new UnityEvent();
 
     private float _prevScrollFillAmount;
     private float _prevFuseFillAmount;
 
     private GameObject _scrollFrame;
     private GameObject _fuseFrame;
+
 
     public bool IsPossibleInteraction { get; private set; }
 
@@ -312,5 +315,10 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         UnlockComputerUI.SetActive(false);
         Time.timeScale = 1f;
+    }
+    
+    public void ModeChange()
+    {
+        Blink.Invoke();
     }
 }
