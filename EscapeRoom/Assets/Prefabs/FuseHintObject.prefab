@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1228553411205317794}
   m_Layer: 0
   m_Name: FuseHintObject
-  m_TagString: Hint
+  m_TagString: Fuse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 150
+  MinDistance: 3
   MaxDistance: 300
   Pan2D: 0
   rolloffMode: 1
@@ -134,7 +134,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
