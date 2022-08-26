@@ -19,6 +19,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private HintScore _hintScore;
     private PlayerSwitching _switching;
+    private PlayerMovement _movement;
 
     public bool IsFinal { get; private set; }
     public bool IsShowAgain { get; private set; }
@@ -38,6 +39,7 @@ public class PlayerInteraction : MonoBehaviour
         _getHintCount = 0;
         _hintScore = HintScore.GetComponent<HintScore>();
         _switching = GetComponent<PlayerSwitching>();
+        _movement = GetComponent<PlayerMovement>();
 
         _hintScore.UpdateText(_getHintCount, TotalHintCount);
 
@@ -71,12 +73,20 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (_switching.CameraSwitching == false)
             {
-                BasicIntercation(hit);
+                if (_movement.CanMove == true)
+                {
+                    BasicIntercation(hit);
+                }
             }
+
             else
             {
                 FuseScore.GetComponent<FuseScore>().UpdateText(_getFuseCount, TotalFuseCount);
-                UniqueInteraction(hit);
+
+                if (_movement.CanMove == true)
+                {
+                    UniqueInteraction(hit);
+                }
             }
             
         }
