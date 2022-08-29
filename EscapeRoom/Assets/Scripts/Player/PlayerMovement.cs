@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -100,5 +101,13 @@ public class PlayerMovement : MonoBehaviour
     void DoMove()
     {
         CanMove = true;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Goal")
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }

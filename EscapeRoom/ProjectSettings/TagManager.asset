@@ -22,6 +22,7 @@ TagManager:
   - PowerSupply
   - SwitchBoard
   - Laptop
+  - Goal
   layers:
   - Default
   - TransparentFX
