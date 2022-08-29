@@ -56,9 +56,9 @@ public class KeyPadScript : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
-        GameManager.Instance.KeyPadClear.RemoveListener(Clear);
-        GameManager.Instance.InputKeyPad.RemoveListener(PushButton);
-    }
+    //void OnDisable()
+    //{
+    //    GameManager.Instance.KeyPadClear.RemoveListener(Clear);
+    //    GameManager.Instance.InputKeyPad.RemoveListener(PushButton);
+    //}
 }

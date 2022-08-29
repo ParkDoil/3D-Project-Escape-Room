@@ -40,8 +40,8 @@ public class Blink : MonoBehaviour
         GameManager.Instance.PlayerMove();
     }
 
-    void OnDisable()
-    {
-        UIManager.Instance.Blink.RemoveListener(Blinking);
-    }
+    //void OnDisable()
+    //{
+    //    UIManager.Instance.Blink.RemoveListener(Blinking);
+    //}
 }

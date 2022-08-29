@@ -21,8 +21,8 @@ public class SwitchBoardObject : MonoBehaviour
         Lamp.SetActive(IsOnLamp);
     }
 
-    void OnDisable()
-    {
-        UIManager.Instance.FixFuse.RemoveListener(LampOn);
-    }
+    //void OnDisable()
+    //{
+    //    UIManager.Instance.FixFuse.RemoveListener(LampOn);
+    //}
 }

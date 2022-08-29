@@ -23,8 +23,8 @@ public class MainDoorScript : MonoBehaviour
         IsLock = false;
     }
 
-    void OnDisable()
-    {
-        GameManager.Instance.DoorUnlock.RemoveListener(OpenDoor);
-    }
+    //void OnDisable()
+    //{
+    //    GameManager.Instance.DoorUnlock.RemoveListener(OpenDoor);
+    //}
 }

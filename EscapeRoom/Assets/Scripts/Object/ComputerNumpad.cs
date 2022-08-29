@@ -60,8 +60,8 @@ public class ComputerNumpad : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
-        GameManager.Instance.InputNumPad.RemoveListener(PushButton);
-    }
+    //void OnDisable()
+    //{
+    //    GameManager.Instance.InputNumPad.RemoveListener(PushButton);
+    //}
 }

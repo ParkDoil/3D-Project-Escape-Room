@@ -365,11 +365,11 @@ public class PlayerInteraction : MonoBehaviour
         IsUnlockComputer = true;
     }
 
-    void OnDisable()
-    {
-        UIManager.Instance.FixFuse.RemoveListener(FixedSupply);
-        GameManager.Instance.Positive.RemoveListener(ChangeStatusTrue);
-        GameManager.Instance.Negative.RemoveListener(ChangeStatusFalse);
-        GameManager.Instance.ComputerUnlock.RemoveListener(InteractionComputer);
-    }
+    //void OnDisable()
+    //{
+    //    UIManager.Instance.FixFuse.RemoveListener(FixedSupply);
+    //    GameManager.Instance.Positive.RemoveListener(ChangeStatusTrue);
+    //    GameManager.Instance.Negative.RemoveListener(ChangeStatusFalse);
+    //    GameManager.Instance.ComputerUnlock.RemoveListener(InteractionComputer);
+    //}
 }

@@ -72,8 +72,8 @@ public class ObjectManager : SingletonBehaviour<ObjectManager>
         IsEmptyFuse = !IsEmptyFuse;
     }
 
-    void OnDisable()
-    {
-        GameManager.Instance.ChangeMode.RemoveListener(FuseSet);
-    }
+    //void OnDisable()
+    //{
+    //    GameManager.Instance.ChangeMode.RemoveListener(FuseSet);
+    //}
 }
