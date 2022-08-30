@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "Goal")
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
     }
 }

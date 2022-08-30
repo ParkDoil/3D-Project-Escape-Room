@@ -8,12 +8,17 @@ public class PlayerSwitching : MonoBehaviour
 
     public GameObject BasicCamera;
     public GameObject UniqueCamera;
+    public GameObject UI;
+
+    private Canvas UICanvas;
 
     public bool CameraSwitching { get; private set; }
     public bool Oneshot { get; private set; }
     public bool CanChange { get; private set; }
     void Start()
     {
+        UICanvas = UI.GetComponent<Canvas>();
+        UICanvas.worldCamera = BasicCamera.GetComponent<Camera>();
         CanChange = true;
         CameraSwitching = false;
         _interaction = GetComponent<PlayerInteraction>();
@@ -50,6 +55,7 @@ public class PlayerSwitching : MonoBehaviour
         {
             if (CameraSwitching == true)
             {
+                UICanvas.worldCamera = UniqueCamera.GetComponent<Camera>();
                 BasicCamera.SetActive(false);
                 UniqueCamera.SetActive(true);
                 UIManager.Instance.SettingUnique();
@@ -59,6 +65,7 @@ public class PlayerSwitching : MonoBehaviour
             }
             else
             {
+                UICanvas.worldCamera = BasicCamera.GetComponent<Camera>();
                 BasicCamera.SetActive(true);
                 UniqueCamera.SetActive(false);
                 UIManager.Instance.SettingNomal();
@@ -79,9 +86,9 @@ public class PlayerSwitching : MonoBehaviour
         CanChange = true;
     }
 
-    void OnDisable()
-    {
-        UIManager.Instance.UIOpen.RemoveListener(UIOpenStatus);
-        UIManager.Instance.UIClose.RemoveListener(UICloseStatus);
-    }
+    //void OnDisable()
+    //{
+    //    UIManager.Instance.UIOpen.RemoveListener(UIOpenStatus);
+    //    UIManager.Instance.UIClose.RemoveListener(UICloseStatus);
+    //}
 }

@@ -7,7 +7,7 @@ public class ClaerUI : MonoBehaviour
 {
     public void Restart()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
 
     public void Exit()
