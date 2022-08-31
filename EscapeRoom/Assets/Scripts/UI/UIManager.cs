@@ -208,6 +208,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         UIOpen.Invoke();
         MenuUI.SetActive(true);
         MenuUI.transform.position = MenuUIPosition.transform.position;
+        MenuUI.transform.rotation = MenuUIPosition.GetComponentInParent<Transform>().rotation;
     }
     public void ExitMenu()
     {

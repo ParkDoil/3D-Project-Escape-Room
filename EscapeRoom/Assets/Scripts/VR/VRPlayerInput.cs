@@ -8,21 +8,29 @@ public class VRPlayerInput : MonoBehaviour
     public float X { get; set; }
     public float Z { get; set; }
 
-    public Vector2 ThumStick;
+    public Vector2 FristThumStick;
+    public Vector2 SecondThumStick;
 
     void Update()
     {
-        X = Input.GetAxis("Horizontal");
-        Z = Input.GetAxis("Vertical");
+        if (OVRInput.Get(OVRInput.Touch.SecondaryThumbstick))
+        {
+            SecondThumStick = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+        }
+
+        if (OVRInput.Get(OVRInput.Touch.PrimaryThumbstick))
+        {
+            FristThumStick = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+        }
+
+        X = FristThumStick.x;
+        Z = FristThumStick.y;
 
         if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick))
         {
             UIManager.Instance.ShowMenu();
         }
 
-        if(OVRInput.Get(OVRInput.Touch.SecondaryThumbstick))
-        {
-            ThumStick = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
-        }
+        
     }
 }

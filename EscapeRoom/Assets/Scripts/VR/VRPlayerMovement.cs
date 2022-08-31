@@ -10,7 +10,6 @@ public class VRPlayerMovement : MonoBehaviour
     Rigidbody _rigid;
 
     public float MoveSpeed = 8f;
-    public float RotationSpeed = 120f;
     public float TurnSpeed = 13f;
 
     private Vector3 dir = Vector3.zero;
@@ -41,7 +40,7 @@ public class VRPlayerMovement : MonoBehaviour
         {
             dir.x = _input.X;
             dir.z = _input.Z;
-            Turndir = _input.ThumStick;
+            Turndir = _input.SecondThumStick;
 
             if (dir != Vector3.zero)
             {
@@ -74,11 +73,11 @@ public class VRPlayerMovement : MonoBehaviour
     {
         if (TurnVec.x < 0)
         {
-            transform.Rotate(0f, TurnVec.x * Time.deltaTime * RotationSpeed, 0f);
+            transform.Rotate(0f, TurnVec.x * Time.deltaTime * TurnSpeed, 0f);
         }
         else if(TurnVec.x > 0)
         {
-            transform.Rotate(0f, TurnVec.x * Time.deltaTime * RotationSpeed, 0f);
+            transform.Rotate(0f, TurnVec.x * Time.deltaTime * TurnSpeed, 0f);
         }
     }
 

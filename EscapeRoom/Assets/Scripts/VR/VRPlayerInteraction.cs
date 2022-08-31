@@ -69,17 +69,12 @@ public class VRPlayerInteraction : MonoBehaviour
     {
         UIManager.Instance.OffInteractionUI();
 
-        Ray ray = new Ray(transform.position, transform.forward); ;
-        RaycastHit hit;
+        Ray FirstRay = new Ray(FirstQuizCamForward.transform.position, FirstQuizCamForward.transform.forward);
+            
+        Ray SecondRay = new Ray(SecondQuizCamForward.transform.position, SecondQuizCamForward.transform.forward);
 
-        if (_switching.CameraSwitching == false)
-        {
-            ray = new Ray(FirstQuizCamForward.transform.position, FirstQuizCamForward.transform.forward);
-        }
-        else
-        {
-            ray = new Ray(SecondQuizCamForward.transform.position, SecondQuizCamForward.transform.forward);
-        }
+        Ray ray = _switching.CameraSwitching ? SecondRay : FirstRay;
+        RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, _interactDiastance))
         {
