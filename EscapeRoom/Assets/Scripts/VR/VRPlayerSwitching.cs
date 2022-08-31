@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static OVRInput;
 
-public class PlayerSwitching : MonoBehaviour
+public class VRPlayerSwitching : MonoBehaviour
 {
-    PlayerInteraction _interaction;
+    VRPlayerInteraction _interaction;
 
     public GameObject MainFirstQuizCamera;
+    public GameObject LeftFirstQuizCamera;
+    public GameObject RightFirstQuizCamera;
 
     public GameObject MainSecondQuizCamera;
+    public GameObject LeftSecondQuizCamera;
+    public GameObject RightSecondQuizCamera;
 
     public GameObject UI;
 
@@ -23,7 +28,7 @@ public class PlayerSwitching : MonoBehaviour
         UICanvas.worldCamera = MainFirstQuizCamera.GetComponent<Camera>();
         CanChange = true;
         CameraSwitching = false;
-        _interaction = GetComponent<PlayerInteraction>();
+        _interaction = GetComponent<VRPlayerInteraction>();
     }
 
     void OnEnable()
@@ -41,7 +46,7 @@ public class PlayerSwitching : MonoBehaviour
         Oneshot = false;
         if (_interaction.GetSwitchObject == true)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (OVRInput.GetDown(OVRInput.Button.Two))
             {
                 if (CanChange == true)
                 {

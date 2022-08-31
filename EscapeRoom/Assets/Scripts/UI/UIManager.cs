@@ -22,6 +22,8 @@ public class UIManager : SingletonBehaviour<UIManager>
     public GameObject FuseImage;
     public GameObject ScrollImage;
 
+    public GameObject MenuUIPosition;
+
     public GameObject[] BedTextUI;
     public GameObject[] SofaTextUI;
     public GameObject[] LockDoorUI;
@@ -205,6 +207,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         Time.timeScale = 0f;
         UIOpen.Invoke();
         MenuUI.SetActive(true);
+        MenuUI.transform.position = MenuUIPosition.transform.position;
     }
     public void ExitMenu()
     {
