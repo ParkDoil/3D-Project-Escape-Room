@@ -40,6 +40,7 @@ public class MainSceneRaycast : MonoBehaviour
             {
                 Debug.Log("UI ¸Â¾Ò´Ù!");
                 Dot.gameObject.SetActive(true);
+                Dot.transform.rotation = transform.rotation;
                 Dot.position = hit.point;
             }
             else
