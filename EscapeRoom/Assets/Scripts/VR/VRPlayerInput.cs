@@ -16,6 +16,7 @@ public class VRPlayerInput : MonoBehaviour
     void Update()
     {
         X = Z = 0f;
+        RightThumStick = Vector2.zero;
         ControllerInput();
     }
 
