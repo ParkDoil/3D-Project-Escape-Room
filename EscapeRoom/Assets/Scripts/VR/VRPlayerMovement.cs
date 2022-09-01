@@ -6,8 +6,8 @@ using static OVRInput;
 
 public class VRPlayerMovement : MonoBehaviour
 {
-    VRPlayerInput _input;
-    Rigidbody _rigid;
+    private VRPlayerInput _input;
+    private Rigidbody _rigid;
 
     public float MoveSpeed = 8f;
     public float TurnSpeed = 13f;
@@ -48,7 +48,7 @@ public class VRPlayerMovement : MonoBehaviour
                 Move(dir);
             }
 
-            if(Turndir != Vector2.zero)
+            if (Turndir != Vector2.zero)
             {
                 TurnAround(Turndir);
             }
@@ -72,14 +72,8 @@ public class VRPlayerMovement : MonoBehaviour
 
     void TurnAround(Vector2 TurnVec)
     {
-        if (TurnVec.x < 0)
-        {
-            transform.Rotate(0f, TurnVec.x * Time.deltaTime * TurnSpeed, 0f);
-        }
-        else if(TurnVec.x > 0)
-        {
-            transform.Rotate(0f, TurnVec.x * Time.deltaTime * TurnSpeed, 0f);
-        }
+        float Turn = TurnVec.x * Time.deltaTime * TurnSpeed;
+        _rigid.rotation = _rigid.rotation * Quaternion.Euler(0f, Turn, 0f);
     }
 
     void OnCollisionEnter(Collision collision)

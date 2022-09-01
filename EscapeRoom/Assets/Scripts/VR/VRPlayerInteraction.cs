@@ -17,8 +17,7 @@ public class VRPlayerInteraction : MonoBehaviour
 
     public GameObject HintScore;
     public GameObject FuseScore;
-    public GameObject FirstQuizCamForward;
-    public GameObject SecondQuizCamForward;
+    public Transform CamForward;
 
     private HintScore _hintScore;
     private VRPlayerSwitching _switching;
@@ -69,11 +68,9 @@ public class VRPlayerInteraction : MonoBehaviour
     {
         UIManager.Instance.OffInteractionUI();
 
-        Ray FirstRay = new Ray(FirstQuizCamForward.transform.position, FirstQuizCamForward.transform.forward);
-            
-        Ray SecondRay = new Ray(SecondQuizCamForward.transform.position, SecondQuizCamForward.transform.forward);
+        Ray FirstRay = new Ray(CamForward.position, CamForward.forward);
 
-        Ray ray = _switching.CameraSwitching ? SecondRay : FirstRay;
+        Ray ray = FirstRay;
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, _interactDiastance))

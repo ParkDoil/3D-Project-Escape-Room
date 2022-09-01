@@ -6,29 +6,37 @@ using UnityEngine.UI;
 
 public class UIManager : SingletonBehaviour<UIManager>
 {
-    public GameObject InteractionUI;
-    public GameObject FinalHintUI;
-    public GameObject ShowAgainUI;
-    public GameObject CameraSettingUI;
-    public GameObject KeyPadUI;
-    public GameObject MenuUI;
-    public GameObject HintUI;
-    public GameObject FuseUI;
-    public GameObject SupplyPanel;
-    public GameObject SwitchBoardUI;
-    public GameObject LockComputerUI;
-    public GameObject UnlockComputerUI;
+    [Header ("카메라 안에 존재해야하는  UI")]
+    [SerializeField] GameObject InteractionUI;
+    [SerializeField] GameObject FinalHintUI;
+    [SerializeField] GameObject ShowAgainUI;
+    [SerializeField] GameObject CameraSettingUI;
+    [SerializeField] GameObject HintUI;
+    [SerializeField] GameObject FuseUI;
 
-    public GameObject FuseImage;
-    public GameObject ScrollImage;
+    [Space (10f)]
+    [SerializeField] GameObject FuseImage;
+    [SerializeField] GameObject ScrollImage;
 
-    public GameObject MenuUIPosition;
+    [Space(10f)]
+    [SerializeField] GameObject[] BedTextUI;
+    [SerializeField] GameObject[] SofaTextUI;
+    [SerializeField] GameObject[] LockDoorUI;
+    [SerializeField] GameObject[] LaptopUI;
 
-    public GameObject[] BedTextUI;
-    public GameObject[] SofaTextUI;
-    public GameObject[] LockDoorUI;
-    public GameObject[] LaptopUI;
+    [Header ("월드스페이스 공간에 따로 있어야하는 UI")]
+    [SerializeField] GameObject KeyPadUI;
+    [SerializeField] GameObject MenuUI;
+    [SerializeField] GameObject SupplyPanel;
+    [SerializeField] GameObject SwitchBoardUI;
+    [SerializeField] GameObject LockComputerUI;
+    [SerializeField] GameObject UnlockComputerUI;
 
+    [Header ("일시정지 메뉴창 위치")]
+    [SerializeField] GameObject MenuUIPosition;
+
+    [Space (20f)]
+    [Header ("이벤트")]
     public UnityEvent ChangeNormal = new UnityEvent();
     public UnityEvent ChangeUnique = new UnityEvent();
     public UnityEvent FixFuse = new UnityEvent();
@@ -206,9 +214,9 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         Time.timeScale = 0f;
         UIOpen.Invoke();
-        MenuUI.SetActive(true);
         MenuUI.transform.position = MenuUIPosition.transform.position;
         MenuUI.transform.rotation = MenuUIPosition.GetComponentInParent<Transform>().rotation;
+        MenuUI.SetActive(true);
     }
     public void ExitMenu()
     {

@@ -27,13 +27,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Camera
   - Water
   - UI
   - CantSee
   - FirstQuiz
   - SecondQuiz
-  - 
+  - Player
   - 
   - 
   - 

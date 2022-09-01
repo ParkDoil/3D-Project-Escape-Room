@@ -5,6 +5,14 @@ using UnityEngine.Events;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
+    [Header("캐싱 오브젝트")]
+    [SerializeField] GameObject HiddenWall;
+    [SerializeField] GameObject FirstQuiz;
+    [SerializeField] GameObject SecondQuiz;
+    [SerializeField] GameObject PasswordHint;
+
+    [Space(20f)]
+    [Header ("이벤트")]
     public UnityEvent DoorUnlock = new UnityEvent();
     public UnityEvent DoorLock = new UnityEvent();
     public UnityEvent ComputerUnlock = new UnityEvent();
@@ -17,11 +25,6 @@ public class GameManager : SingletonBehaviour<GameManager>
     public UnityEvent Negative = new UnityEvent();
     public UnityEvent StopMove = new UnityEvent();
     public UnityEvent ContinueMove = new UnityEvent();
-
-    public GameObject HiddenWall;
-    public GameObject FirstQuiz;
-    public GameObject SecondQuiz;
-    public GameObject PasswordHint;
 
     private int _inputNum = 0;
     private int _inputPassword = 0;

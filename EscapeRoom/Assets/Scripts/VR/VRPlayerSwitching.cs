@@ -1,31 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static OVRInput;
 
 public class VRPlayerSwitching : MonoBehaviour
 {
     VRPlayerInteraction _interaction;
 
-    public GameObject MainFirstQuizCamera;
-    public GameObject LeftFirstQuizCamera;
-    public GameObject RightFirstQuizCamera;
+    [SerializeField] GameObject[] FirstQuizCams;
 
-    public GameObject MainSecondQuizCamera;
-    public GameObject LeftSecondQuizCamera;
-    public GameObject RightSecondQuizCamera;
-
-    public GameObject UI;
-
-    private Canvas UICanvas;
+    [Space(20f)]
+    public UnityEvent CameraChange = new UnityEvent();
 
     public bool CameraSwitching { get; private set; }
     public bool Oneshot { get; private set; }
     public bool CanChange { get; private set; }
+
+
     void Start()
     {
-        UICanvas = UI.GetComponent<Canvas>();
-        UICanvas.worldCamera = MainFirstQuizCamera.GetComponent<Camera>();
         CanChange = true;
         CameraSwitching = false;
         _interaction = GetComponent<VRPlayerInteraction>();
@@ -44,6 +38,7 @@ public class VRPlayerSwitching : MonoBehaviour
     void Update()
     {
         Oneshot = false;
+
         if (_interaction.GetSwitchObject == true)
         {
             if (OVRInput.GetDown(OVRInput.Button.Two))
@@ -62,9 +57,8 @@ public class VRPlayerSwitching : MonoBehaviour
         {
             if (CameraSwitching == true)
             {
-                UICanvas.worldCamera = MainSecondQuizCamera.GetComponent<Camera>();
-                MainFirstQuizCamera.SetActive(false);
-                MainSecondQuizCamera.SetActive(true);
+                ChangingCullingMask();
+
                 UIManager.Instance.SettingUnique();
                 UIManager.Instance.ShowFuseUI();
                 GameManager.Instance.IsDoorActive = true;
@@ -72,13 +66,38 @@ public class VRPlayerSwitching : MonoBehaviour
             }
             else
             {
-                UICanvas.worldCamera = MainFirstQuizCamera.GetComponent<Camera>();
-                MainFirstQuizCamera.SetActive(true);
-                MainSecondQuizCamera.SetActive(false);
+                ChangingCullingMask();
                 UIManager.Instance.SettingNomal();
                 UIManager.Instance.ExitFuseUI();
                 GameManager.Instance.IsDoorActive = false;
                 GameManager.Instance.DoorActive();
+            }
+        }
+    }
+
+    void ChangingCullingMask()
+    {
+        if (CameraSwitching == true)
+        {
+            for (int i = 0; i < FirstQuizCams.Length; ++i)
+            {
+                Camera _cam = FirstQuizCams[i].GetComponent<Camera>();
+                _cam.cullingMask = -1;
+                _cam.cullingMask = ~(1 << LayerMask.NameToLayer("FirstQuiz"));
+                _cam.cullingMask = ~(1 << LayerMask.NameToLayer("Camera"));
+                _cam.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
+            }
+        }
+        else
+        {
+            for (int i = 0; i < FirstQuizCams.Length; ++i)
+            {
+                Camera _cam = FirstQuizCams[i].GetComponent<Camera>();
+                _cam.cullingMask = -1;
+                _cam.cullingMask = ~(1 << LayerMask.NameToLayer("SecondQuiz"));
+                _cam.cullingMask = ~(1 << LayerMask.NameToLayer("CantSee"));
+                _cam.cullingMask = ~(1 << LayerMask.NameToLayer("Camera"));
+                _cam.cullingMask = ~(1 << LayerMask.NameToLayer("Player"));
             }
         }
     }

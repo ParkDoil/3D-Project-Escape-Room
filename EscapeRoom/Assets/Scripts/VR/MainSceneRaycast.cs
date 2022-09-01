@@ -33,7 +33,7 @@ public class MainSceneRaycast : MonoBehaviour
 
         Ray ray = new Ray(CenterCamera.position, CenterCamera.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 3000))
+        if (Physics.Raycast(ray, out hit, 10f))
         {
             Debug.Log("레이캐스트 맞았다!");
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("UI"))
