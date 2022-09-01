@@ -12,7 +12,7 @@ public class VRPlayerMovement : MonoBehaviour
     public float MoveSpeed = 8f;
     public float TurnSpeed = 13f;
 
-    private Vector3 dir = Vector3.zero;
+    private Vector3 dir;
     private Vector2 Turndir = Vector2.zero;
 
     public bool Iscollision { get; private set; }
@@ -21,6 +21,7 @@ public class VRPlayerMovement : MonoBehaviour
     void Awake()
     {
         CanMove = true;
+        dir = transform.position;
         _input = GetComponent<VRPlayerInput>();
         _rigid = GetComponent<Rigidbody>();
     }
@@ -40,7 +41,7 @@ public class VRPlayerMovement : MonoBehaviour
         {
             dir.x = _input.X;
             dir.z = _input.Z;
-            Turndir = _input.SecondThumStick;
+            Turndir = _input.RightThumStick;
 
             if (dir != Vector3.zero)
             {
