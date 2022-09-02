@@ -146,7 +146,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
         LaptopUI[index].SetActive(true);
 
-        Invoke("UnshowSofaText", 0.7f);
+        Invoke("UnshowLaptopText", 0.7f);
     }
     public void UnshowLaptopText()
     {

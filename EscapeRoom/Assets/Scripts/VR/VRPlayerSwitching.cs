@@ -9,6 +9,7 @@ public class VRPlayerSwitching : MonoBehaviour
     VRPlayerInteraction _interaction;
 
     [SerializeField] GameObject[] FirstQuizCams;
+    [SerializeField] GameObject LocalPosition;
 
     [Space(20f)]
     public UnityEvent CameraChange = new UnityEvent();
@@ -38,6 +39,10 @@ public class VRPlayerSwitching : MonoBehaviour
     void Update()
     {
         Oneshot = false;
+        for (int i = 0; i < FirstQuizCams.Length; ++i)
+        {
+            FirstQuizCams[i].transform.localPosition = LocalPosition.transform.localPosition;
+        }
 
         if (_interaction.GetSwitchObject == true)
         {
